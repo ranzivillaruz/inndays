@@ -1,18 +1,49 @@
-Index
-(Homepage,carousel preview) - gio, aj
-Register -erika
-Login -erika
-Footer(contact us)
-Header (logo)
-navbar borgir (faq, lisitngs, profile(login/logout/update))
-FAQ
+<?php 
+// Define the page title and current page for the header
+$pageTitle = "Home - innDays";
+$currentPage = "home";
 
-Listings(by the beach, mountain,river, lake, most viewed, trending) ranzi, erika
+// Include the reusable header
+include 'header.php'; 
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+</head>
+<body>
+    <!-- 
+    <main>
+        <h2>Welcome to innDays</h2>
+        <p>Your ultimate destination for listings by the beach, mountains, rivers, and lakes.</p>
+
+        <section class="carousel-preview">
+            <p>Carousel preview goes here (Gio, AJ)</p>
+        </section>
+
+        <section class="features">
+            <h3>Discover Our Features</h3>
+            <ul>
+                <li>Register - Erika</li>
+                <li>Login - Erika</li>
+                <li>Footer (Contact Us)</li>
+            </ul>
+        </section>
+
+        <section class="listings-preview">
+            <h3>Popular Listings</h3>
+            <p>By the beach, mountain, river, lake, most viewed, trending - Ranzi, Erika</p>
+        </section>
+    </main>
+    -->
+</body>
+</html>
 
 
+<!-- Include footer -->
+<?php //include 'footer.php'; ?>
 
-10 each with interior with INFO HA like ilan bedrooms chuchu
-beach- erika
-mountain- aj
-river- daniel
-lake - z
+
