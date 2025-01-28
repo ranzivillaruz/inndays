@@ -4,18 +4,20 @@ session_start(); // Start the session to access session variables
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
     <div class="cont">
         <div class="form sign-in">
             <h2>Welcome back!</h2>
-            <form action="login.php" method="POST">
+            <form action="/inndays/server/login_controller.php" method="POST">
                 <label>
                     <span>Email</span>
                     <input type="email" name="email" required />
@@ -44,8 +46,8 @@ session_start(); // Start the session to access session variables
                     <span class="m--in">Sign In</span>
                 </div>
             </div>
-            
-            <form action="submit.php" method="POST" class="form sign-up">
+
+            <form action="/inndays/server/register_controller.php" method="POST" class="form sign-up">
                 <h2>Time to feel like home</h2>
                 <label>
                     <span>Name</span>
@@ -76,9 +78,10 @@ session_start(); // Start the session to access session variables
     <?php endif; ?>
 
     <script>
-        document.querySelector('.img__btn').addEventListener('click', function() {
+        document.querySelector('.img__btn').addEventListener('click', function () {
             document.querySelector('.cont').classList.toggle('s--signup');
         });
     </script>
 </body>
+
 </html>
