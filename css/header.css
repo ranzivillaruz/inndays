@@ -14,6 +14,9 @@
 nav {
   background-color: var(--bg-color);
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 99999999;
 }
 
 nav ul {
@@ -200,9 +203,33 @@ nav .innDays-logo {
   }
 }
 
-@media (max-width: 480px) {
-  .user-profile-options-big-screen {
-    top: 40px;
-    right: 50px;
+@media (min-width: 251px) and (max-width: 404px) {
+  .sidebar {
+    right: -100%; /* Keep the sidebar hidden by default */
+    transition: right 0.3s ease-in-out; /* Smooth transition for opening/closing */
   }
+
+  .sidebar.active {
+    right: 0; /* Sidebar slides in when activated */
+  }
+
+  .sidebar li {
+    width: 100%; /* Full width for list items */
+  }
+
+
+  .sidebar .user-profile {
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 20%;
+  }
+
+  .sidebar .closeSidebar {
+    display: flex;
+    justify-content: flex-end;
+    width: 30%;
+    margin-left: 50%;
+  }
+
 }
+

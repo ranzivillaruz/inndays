@@ -38,7 +38,7 @@ include 'header.php';
             <p>By the beach, mountain, river, lake, most viewed, trending - Ranzi, Erika</p>
         </section>
     </main>
-    -->
+
 </body>
 </html>
 

@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title></title>
+</head>
+<body>
 <!-- footer.php -->
 <footer class="site-footer">
     <div class="footer-content">
@@ -9,7 +18,7 @@
         </div>
 
         <div class="footer-section links">
-            <h3>Quick Links</h3>
+            <h3>Follow us on our Socials:</h3>
             <ul>
                 <li><a href="index.php">Home</a></li>
                 <li><a href="listings.php">Listings</a></li>
@@ -30,3 +39,5 @@
 </footer>
 </body>
 </html>
+
+
