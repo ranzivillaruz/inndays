@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+body {
+    line-height: 1.5;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    overflow-x: hidden;
+    min-height: 100vh; 
+    background-image: url("../assets/footerbg.jpg");
+    background-repeat: no-repeat; 
+    background-size: contain; 
+    background-position: center top; 
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    max-width: 1170px;
+    margin: auto;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; 
+    align-items: flex-start; 
+}
+
+ul {
+    list-style: none;
+}
+
+.footer {
+    /* background-image: url('.jpg'); */
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #3A2D28;
+    position: relative;
+}
+
+
+.footer-col {
+    width: 25%;
+    padding: 0 10px;
+    text-align: left;
+}
+
+
+.footer-col h4 {
+        font-size: 18px;
+        color: #3A2D28;
+        text-transform: capitalize;
+        margin-bottom: 35px;
+        font-weight: 500;
+        position: relative;
+        text-align: left; /* Left align header */
+}
+    
+
+.footer-col h4::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    transform: none; 
+    bottom: -10px;
+    background-color: #3A2D28; /* Brown line */
+    height: 2px;
+    box-sizing: border-box;
+    width: 50px; 
+}
+
+.footer-col ul li:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.footer-col ul li a {
+    font-size: 16px;
+    text-transform: capitalize;
+    color: #3A2D28;
+    text-decoration: none;
+    font-weight: 300;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+.footer-col ul li a:hover {
+    color: #000000;
+    padding-left: 8px;
+}
+
+.footer-col .social-links a {
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    background-color: rgba(255, 255, 255, 0.2);
+    margin: 0 10px 10px 0;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 50%;
+    color: #3A2D28;
+    transition: all 0.5s ease;
+}
+
+.footer-col .social-links a:hover {
+    color: #A48374;
+    background-color: #3A2D28;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding: 10px 0;
+    background-color:#3A2D28;
+    color: #ffffff;
+    font-size: 14px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Responsive Design */
+@media (max-width: 767px) {
+    .footer-col {
+        width: 50%;
+        margin-bottom: 30px;
+    }
+}
+
+@media (max-width: 574px) {
+    .footer-col {
+        width: 100%;
+    }
+}
+.footer-col p {
+    color: #3A2D28;
+}
+.footer-col p a {
+    color: inherit; /* Inherit the color from the parent element */
+    text-decoration: none; /* Remove the underline */
+    font-weight: 300; /* Optional: Adjust the weight to match other text */
+}
+
+.footer-col p a:hover {
+    color: #A48374; /* Optional: Add a hover effect */
+    text-decoration: underline; /* Optional: Add an underline on hover */
+}
