@@ -1,0 +1,17 @@
+* {
+    margin:0px;
+    padding : 0px;
+    box-sizing: border-box;
+    font-family: sans-serif;
+
+}
+
+body{
+    background-color: #f0f0f0;
+}
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
