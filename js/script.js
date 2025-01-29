@@ -88,4 +88,5 @@ function FakeForm({ heading, fields, submitLabel }: FakeFormProps) {
   );
 }
 
+
 ReactDOM.render(<Demo />, document.querySelector('#demo'));
