@@ -1,99 +1,208 @@
-
-*{
-    margin: 0;
-    padding: 0;
-    --primary-color: #CBAD8D;
-    --secondary-color: #D1C7BD;
-    --third-color: #EBE3DB;
-    --fourth-color: #F1EDE6;
-    --fifth-color: #A48374;
-    --text-color: #3A2D28;
+* {
+  margin: 0;
+  padding: 0;
+  --bg-color: #cbad8d;
+  --highlight-color: #d1c7bd;
+  --supporting-highlight-color: #ebe3db;
+  --hover-color: #a48374;
+  --hover-text-color: #f1ede6;
+  --text-color: #3a2d28;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.site-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+/* Navigation Bar */
+nav {
+  background-color: var(--bg-color);
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+nav ul {
+  width: 100%;
+  list-style: none;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+nav li {
+  height: 60px;
+}
+
+nav a {
+  height: 100%;
+  padding: 0 30px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  color: black;
+  transition: 0.5s;
+}
+
+nav a:hover {
+  background-color: var(--hover-color);
+  color: var(--hover-text-color);
+}
+
+nav li:first-child {
+  margin-right: auto;
+  margin-left: 1%;
+}
+
+nav .innDays-logo {
+  width: 95%;
+  height: 95%;
+  margin-left: 25%;
+}
+
+.headerMenu {
+  display: none;
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -250px;
+  height: 100vh;
+  width: 250px;
+  z-index: 999;
+  background-color: var(--highlight-color);
+  box-shadow: rgba(149, 157, 165, 0.011) 0px 8px 24px;
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  transition: right 0.3s ease-in-out;
+}
+
+.sidebar.active {
+  right: 0;
+}
+
+.sidebar li {
+  width: 80%;
+}
+
+.sidebar a {
+  width: 100%;
+}
+
+.sidebarFirstLine {
+  display: flex;
+  flex-direction: row;
+}
+
+.user-profile-show {
+  width: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-profile-wrapper {
+  margin-right: 20px;
+  margin-left: 50px;
+}
+
+/* User Profile Dropdown Options for Big Screens */
+.user-profile-options-big-screen {
+  display: none;
+  position: absolute;
+  top: 60px;
+  right: 40px;
+  background-color: var(--highlight-color);
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 6px;
+  z-index: 1000;
+  padding: 0;
+}
+
+.user-profile-options-big-screen.visible {
+  display: block;
+}
+
+
+.user-profile-options-big-screen li a {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.user-profile-options-big-screen li a:hover {
+  background-color: var(--hover-color);
+  color: var(--hover-text-color);
+}
+
+/* User Profile Options (Sidebar) */
+.user-profile-options {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+}
+
+.user-profile-options.active {
+  display: flex;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+  nav .innDays-logo {
+    margin-left: 10%;
+  }
+
+  .hideOnSmallScreens {
+    display: none;
+  }
+
+  .headerMenu {
+    display: block;
+  }
+
+  .sidebarFirstLine {
     width: 100%;
-    height: 12vh;
-    background-color: var(--primary-color);
-}
-
-.logo{
-    margin-left: 1%;
-}
-
-.nav-profile{
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     justify-content: space-between;
-    width: 30%;
-    height: 100%;
     align-items: center;
-    margin-right: 1%;
-}
+    gap: 100px;
+    margin-top: 2%;
+  }
 
-.navbar{
+  .user-profile {
     display: flex;
-    width: 70%;
-    justify-content: space-between;
-    height: 100%;
+    justify-content: flex-end;
+  }
+
+  .user-profile-options {
+    width: 100%;
+    align-self: flex-start;
+  }
+
+  .user-profile-options li a {
+    border-bottom: 2px solid var(--text-color);
+  }
+
+  .sidebar li a {
+    border-bottom: 2px solid var(--text-color);
+  }
 }
 
-.navbar a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    color: var(--text-color);
-    height: 100%;
-    transition: 0.5s;
-    width: 33.33333%;
+@media (max-width: 400px) {
+  .sidebar {
+    width: 100%;
+  }
 }
 
-.navbar a:hover {
-    background-color: var(--fifth-color);
-    color: #EBE3DB;
+@media (max-width: 768px) {
+  .user-profile-options-big-screen {
+    top: 50px;
+    right: 50px;
+  }
 }
 
-/* CSS for the profile dropdown menu */
-.profile {
-    position: relative;
-}
-
-.profile-dropdown-menu {
-    display: none; /* Ensure the dropdown is hidden by default */
-    position: absolute;
-    text-wrap: wrap;
-    width: 10vw;
-    top: 10vh; /* Adjust based on your layout */
-    right: 0;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    list-style-type: none;
-    padding: 10px;
-    margin: 0;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.profile-dropdown-menu li {
-    padding: 8px 10px;
-    cursor: pointer;
-    transition: 0.5s;
-}
-
-.profile-dropdown-menu li:hover {
-    background-color: var(--fifth-color); /* Set background color on hover */
-}
-
-/* Hover effect on the anchor tag inside the list item */
-.profile-dropdown-menu a {
-    text-decoration: none;
-    color: #333; /* Default color for anchor */
-    display: block; /* Ensure the anchor takes full width of li */
-    padding: 8px 10px; /* Add padding to anchor for better spacing */
-}
-
-.profile-dropdown-menu a:hover {
-    color: var(--secondary-color); /* Change color on hover */
+@media (max-width: 480px) {
+  .user-profile-options-big-screen {
+    top: 40px;
+    right: 50px;
+  }
 }
