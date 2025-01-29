@@ -68,77 +68,77 @@
             </li>
         </ul>
     </nav>
- 
+
     <!-- JavaScript -->
     <script>
-    function showHeaderSidebar() {
-        const sidebar = document.querySelector('.sidebar');
-        sidebar.classList.add('active');
-        sidebar.style.right = '0'; // Slide in the sidebar
-    }
-
-    function hideHeaderSidebar() {
-        const sidebar = document.querySelector('.sidebar');
-        sidebar.classList.remove('active');
-        sidebar.style.right = '-100%'; // Slide out the sidebar
-    }
-
-    function toggleUserProfileOptions() {
-        const userProfileOptions = document.getElementById('userProfileOptions');
-        userProfileOptions.classList.toggle('active');
-    }
-
-    function toggleUserProfileOptionsBigScreen() {
-        const userProfileOptionsBigScreen = document.getElementById('userProfileOptionsBigScreen');
-        userProfileOptionsBigScreen.classList.toggle('visible');
-    }
-
-    document.addEventListener('DOMContentLoaded', function () {
-        const sidebar = document.querySelector('.sidebar');
-        const toggleButton = document.querySelector('.sidebar-toggle'); // Replace with actual toggle button selector
-
-        // Ensure the sidebar is hidden on load for the specified width range
-        if (window.innerWidth >= 251 && window.innerWidth <= 404) {
-            sidebar.style.right = '-100%';
+        function showHeaderSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.add('active');
+            sidebar.style.right = '0'; // Slide in the sidebar
         }
 
-        // Handle toggle button click to open/close sidebar
-        if (toggleButton) {
-            toggleButton.addEventListener('click', function () {
-                if (sidebar.classList.contains('active')) {
+        function hideHeaderSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.remove('active');
+            sidebar.style.right = '-100%'; // Slide out the sidebar
+        }
+
+        function toggleUserProfileOptions() {
+            const userProfileOptions = document.getElementById('userProfileOptions');
+            userProfileOptions.classList.toggle('active');
+        }
+
+        function toggleUserProfileOptionsBigScreen() {
+            const userProfileOptionsBigScreen = document.getElementById('userProfileOptionsBigScreen');
+            userProfileOptionsBigScreen.classList.toggle('visible');
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const sidebar = document.querySelector('.sidebar');
+            const toggleButton = document.querySelector('.sidebar-toggle'); // Replace with actual toggle button selector
+
+            // Ensure the sidebar is hidden on load for the specified width range
+            if (window.innerWidth >= 251 && window.innerWidth <= 404) {
+                sidebar.style.right = '-100%';
+            }
+
+            // Handle toggle button click to open/close sidebar
+            if (toggleButton) {
+                toggleButton.addEventListener('click', function () {
+                    if (sidebar.classList.contains('active')) {
+                        sidebar.classList.remove('active');
+                        sidebar.style.right = '-100%'; // Slide sidebar out
+                    } else {
+                        sidebar.classList.add('active');
+                        sidebar.style.right = '0'; // Slide sidebar in
+                    }
+                });
+            }
+
+            // Close dropdowns and adjust layout on screen resize
+            window.addEventListener('resize', function () {
+                const userProfileOptionsBigScreen = document.getElementById('userProfileOptionsBigScreen');
+
+                // Ensure the sidebar is hidden for smaller screens between 251px and 404px
+                if (window.innerWidth >= 251 && window.innerWidth <= 404) {
+                    if (!sidebar.classList.contains('active')) {
+                        sidebar.style.right = '-100%'; // Keep it hidden
+                    }
+                }
+
+                // Remove "active" class from sidebar for screens <= 768px
+                if (window.innerWidth <= 768 && sidebar.classList.contains('active')) {
                     sidebar.classList.remove('active');
-                    sidebar.style.right = '-100%'; // Slide sidebar out
-                } else {
-                    sidebar.classList.add('active');
-                    sidebar.style.right = '0'; // Slide sidebar in
+                    sidebar.style.right = '-100%'; // Ensure it is hidden
+                }
+
+                // Close user profile options on big screens when resized below 768px
+                if (window.innerWidth < 768 && userProfileOptionsBigScreen && userProfileOptionsBigScreen.classList.contains('visible')) {
+                    userProfileOptionsBigScreen.classList.remove('visible');
                 }
             });
-        }
-
-        // Close dropdowns and adjust layout on screen resize
-        window.addEventListener('resize', function () {
-            const userProfileOptionsBigScreen = document.getElementById('userProfileOptionsBigScreen');
-
-            // Ensure the sidebar is hidden for smaller screens between 251px and 404px
-            if (window.innerWidth >= 251 && window.innerWidth <= 404) {
-                if (!sidebar.classList.contains('active')) {
-                    sidebar.style.right = '-100%'; // Keep it hidden
-                }
-            }
-
-            // Remove "active" class from sidebar for screens <= 768px
-            if (window.innerWidth <= 768 && sidebar.classList.contains('active')) {
-                sidebar.classList.remove('active');
-                sidebar.style.right = '-100%'; // Ensure it is hidden
-            }
-
-            // Close user profile options on big screens when resized below 768px
-            if (window.innerWidth < 768 && userProfileOptionsBigScreen && userProfileOptionsBigScreen.classList.contains('visible')) {
-                userProfileOptionsBigScreen.classList.remove('visible');
-            }
         });
-    });
-</script>
+    </script>
 
 
 </body>

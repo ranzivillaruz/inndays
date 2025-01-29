@@ -15,3 +15,8 @@ body{
     justify-content: center;
     margin-top: 20px;
 }
+.card{
+   width: 325px; 
+   background-color: aqua;
+   
+}
