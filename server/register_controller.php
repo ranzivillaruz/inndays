@@ -1,18 +1,7 @@
 <?php
-session_start(); // Start the session to store messages
+session_start(); // Start the session 
+include("connection.php");
 
-// Database configuration
-$host = 'localhost';
-$user = 'root';
-$password = '';
-$dbname = 'inndays';
-
-// Create a database connection
-$conn = new mysqli($host, $user, $password, $dbname);
-
-if ($conn->connect_error) {
-    die('Connection failed: ' . $conn->connect_error);
-}
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
