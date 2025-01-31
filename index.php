@@ -23,7 +23,7 @@ include 'header.php';
 
    
 
-<section class="parallax-section" style="background-image: url('assets/gif-3.gif');">
+<section class="parallax-section" style="background-image: url('assets/freepik__expand__85678.jpeg');">
     <div class="overlay1">
         <header>
             <h2>Welcome to innDays</h2>
@@ -33,7 +33,7 @@ include 'header.php';
 </section>
 
 
-    <section class="parallax-section" style="background-image: url('assets/gif-3.gif');">
+    <section class="parallax-section" style="background-image: url('assets/freepik__expand__18390.jpeg');">
         <div class="overlay">
             <div class="carousel-container">
                 <div class="carousel">
@@ -45,7 +45,7 @@ include 'header.php';
         </div>
     </section>
 
-    <section class="parallax-section" style="background-image: url('assets/gif-1.gif');">
+    <section class="parallax-section" style="background-image: url('assets/freepik__upload__30746.png');">
         <div class="overlay">
             <h3>Discover Our Features</h3>
             <ul>
@@ -69,9 +69,8 @@ include 'header.php';
 
         $(document).ready(function(){
             $('.carousel').slick({
-                dots: true,
                 infinite: true,
-                speed: 500,
+                speed: 800,
                 slidesToShow: 1,
                 slidesToScroll: 1,
                 autoplay: true,
