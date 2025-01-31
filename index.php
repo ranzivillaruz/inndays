@@ -1,7 +1,12 @@
 <?php 
+session_start(); // Start the session
+
 // Define the page title and current page for the header
 $pageTitle = "Home - innDays";
 $currentPage = "home";
+
+// Check if the user is logged in and set a default value if not
+$userName = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : "Guest";
 
 // Include the reusable header
 include 'header.php'; 
@@ -26,7 +31,7 @@ include 'header.php';
 <section class="parallax-section" style="background-image: url('assets/freepik__expand__85678.jpeg');">
     <div class="overlay1">
         <header>
-            <h2>Welcome to innDays</h2>
+            <h2>Welcome to innDays , <?php echo htmlspecialchars($userName); ?>!</h2>
             <p>Your ultimate destination for listings by the beach, mountains, rivers, and lakes.</p>
         </header>
     </div>
