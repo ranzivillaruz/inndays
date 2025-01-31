@@ -8,14 +8,15 @@ session_start(); // Start the session to access session variables
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Login/Register - innDays</title>
+    <link rel="icon" type="image/x-icon" href="assets/icon.png">
+    <link rel="stylesheet" href="css/loginreg.css">
 </head>
 
 <body>
 
     <div class="cont">
-        <div class="form sign-in">
+        <div class="form sign-in" id="sign-in">
             <h2>Welcome back!</h2>
             <form action="/inndays/server/login_controller.php" method="POST">
                 <label>
@@ -47,7 +48,7 @@ session_start(); // Start the session to access session variables
                 </div>
             </div>
 
-            <form action="/inndays/server/register_controller.php" method="POST" class="form sign-up">
+            <form action="/inndays/server/register_controller.php" method="POST" class="form sign-up" id="sign-up">
                 <h2>Time to feel like home</h2>
                 <label>
                     <span>Name</span>
@@ -81,6 +82,8 @@ session_start(); // Start the session to access session variables
         document.querySelector('.img__btn').addEventListener('click', function () {
             document.querySelector('.cont').classList.toggle('s--signup');
         });
+        
+        
     </script>
 </body>
 
