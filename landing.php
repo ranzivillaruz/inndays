@@ -7,7 +7,7 @@
     <title>innDays</title>
     <link rel="stylesheet" href="css/landing.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="icon" type="image/x-icon" href="assets/icon.png">
+    <link rel="icon" type="image/x-icon" href="assets/innDays icon.png">
 </head>
 
 <body>
@@ -33,25 +33,25 @@
         <div class="content active">
             <h1>MOUNTAIN <br> <span>Side</span> </h1>
             <p>Experience serene mountain living with breathtaking views, fresh air, and endless outdoor adventures just steps from your door. Escape the hustle and embrace tranquility in a home nestled in nature’s embrace..</p>
-            <a href="#">Read More</a>
+            <a href="loginreg.php">Read More</a>
         </div>
 
         <div class="content">
             <h1>RIVER <br> <span>Side</span> </h1>
             <p>Live by the gentle flow of the river, where nature’s beauty meets peaceful waterfront living. Enjoy fishing, kayaking, and stunning sunsets from your own private retreat.</p>
-            <a href="#">Read More</a>
+            <a href="loginreg.php">Read More</a>
         </div>
 
         <div class="content">
             <h1>LAKE <br> <span>Side</span> </h1>
             <p>Discover the perfect lakeside escape with panoramic water views and endless recreational activities. Whether for year-round living or a weekend getaway, these homes offer a peaceful retreat by the water.</p>
-            <a href="#">Read More</a>
+            <a href="loginreg.php">Read More</a>
         </div>
 
         <div class="content">
             <h1>BEACH<br> <span>Side</span> </h1>
             <p>Wake up to the soothing sound of waves and enjoy sun-kissed shores right outside your doorstep. These stunning beachfront homes offer the perfect blend of luxury, relaxation, and coastal charm.</p>
-            <a href="#">Read More</a>
+            <a href="loginreg.php">Read More</a>
         </div>
 
         <div class="media-icons">
