@@ -134,6 +134,7 @@ select {
     .add_listing {
         font-size: 14px;
         padding: 8px 15px;
+        display: none;
     }
 
     .card img {
