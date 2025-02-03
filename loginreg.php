@@ -1,90 +1,105 @@
 <?php
 session_start(); // Start the session to access session variables
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login/Register - innDays</title>
-    <link rel="icon" type="image/x-icon" href="assets/icon.png">
-    <link rel="stylesheet" href="css/loginreg.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+  <link rel="stylesheet" href="css/loginreg.css" />
+  <link rel="icon" type="image/x-icon" href="assets/icon.png">
+  <title>Login and Register-innDays</title>
 </head>
 
 <body>
+  <div class="container">
+    <div class="forms-container">
+      <div class="signin-signup">
+        
+      <form action="/inndays/server/login_controller.php" method="POST" class="sign-in-form">
+    <h2 class="title">Sign in</h2>
+    <div class="input-field">
+        <i class="fas fa-envelope"></i>
+        <input type="text" name="email" placeholder="Email or Username" required />
+    </div>
+    <div class="input-field">
+        <i class="fas fa-lock"></i>
+        <input type="password" name="password" placeholder="Password" required />
+    </div>
+    <input type="submit" value="Login" class="btn solid" />
+</form>
 
-    <div class="cont">
-        <div class="form sign-in" id="sign-in">
-            <h2>Welcome back!</h2>
-            <form action="/inndays/server/login_controller.php" method="POST">
-                <label>
-                    <span>Email</span>
-                    <input type="email" name="email" required />
-                </label>
-                <label>
-                    <span>Password</span>
-                    <input type="password" name="password" required />
-                </label>
-                <p class="forgot-pass">Forgot password?</p>
-                <button type="submit" class="submit">Sign In</button>
-            </form>
-        </div>
 
-        <div class="sub-cont">
-            <div class="img">
-                <div class="img__text m--up">
-                    <h2>New here?</h2>
-                    <p>Sign up and book with us!</p>
-                </div>
-                <div class="img__text m--in">
-                    <h2>One of us?</h2>
-                    <p>If you already have an account, just sign in. We've missed you!</p>
-                </div>
-                <div class="img__btn">
-                    <span class="m--up">Sign Up</span>
-                    <span class="m--in">Sign In</span>
-                </div>
+          <form action="/inndays/server/register_controller.php" method="POST" class="sign-up-form">
+            <h2 class="title">Sign up</h2>
+            <div class="input-field">
+              <i class="fas fa-user"></i>
+              <input type="text" name="name" placeholder="Name" required />
             </div>
+            <div class="input-field">
+  <i class="fas fa-phone"></i>
+  <input type="tel" name="contact" placeholder="Contact Number" pattern="^[0-9]{11}$" 
+  maxlength="11" inputmode="numeric" />
+</div>
 
-            <form action="/inndays/server/register_controller.php" method="POST" class="form sign-up" id="sign-up">
-                <h2>Time to feel like home</h2>
-                <label>
-                    <span>Name</span>
-                    <input type="text" name="name" required />
-                </label>
-                <label>
-                    <span>Email</span>
-                    <input type="email" name="email" required />
-                </label>
-                <label>
-                    <span>Password</span>
-                    <input type="password" name="password" required />
-                </label>
-                <button type="submit" class="submit">Sign Up</button>
-            </form>
-        </div>
+
+            <div class="input-field">
+              <i class="fas fa-envelope"></i>
+              <input type="email" name="email" placeholder="Email" required />
+            </div>
+            <div class="input-field">
+              <i class="fas fa-lock"></i>
+              <input type="password" name="password" placeholder="Password" required />
+            </div>
+            <input type="submit" class="btn" value="Sign up" />
+          </form>
+
+      </div>
     </div>
 
-    <?php if (isset($_SESSION['popupMessage'])): ?>
-        <div class="popup <?php echo $_SESSION['popupType']; ?>">
-            <?php echo $_SESSION['popupMessage']; ?>
+    <div class="panels-container">
+      <div class="panel left-panel">
+        <div class="content">
+          <h3>New here ?</h3>
+          <p>
+            Sign up and book with us!
+          </p>
+          <button class="btn transparent" id="sign-up-btn">
+            Sign up
+          </button>
         </div>
-        <?php
-        // Unset session messages after showing them
-        unset($_SESSION['popupMessage']);
-        unset($_SESSION['popupType']);
-        ?>
-    <?php endif; ?>
+        <img src="assets/book.svg" class="image" alt="" />
+      </div>
+      <div class="panel right-panel">
+        <div class="content">
+          <h3>One of us ?</h3>
+          <p>
+            If you already have an account, just sign in. We've missed you!
+          </p>
+          <button class="btn transparent" id="sign-in-btn">
+            Sign in
+          </button>
+        </div>
+        <img src="assets/register.svg" class="image" alt="" />
+      </div>
+    </div>
+  </div>
+  <?php if (isset($_SESSION['popupMessage'])): ?>
+    <div class="popup <?php echo $_SESSION['popupType']; ?>" id="popupMessage">
+        <span><?php echo $_SESSION['popupMessage']; ?></span>
+    </div>
+    <?php
+    unset($_SESSION['popupMessage']);
+    unset($_SESSION['popupType']);
+    ?>
+<?php endif; ?>
 
-    <script>
-        document.querySelector('.img__btn').addEventListener('click', function () {
-            document.querySelector('.cont').classList.toggle('s--signup');
-        });
-        
-        
-    </script>
+
+  <script src="js/script.js"></script>
 </body>
 
 </html>
