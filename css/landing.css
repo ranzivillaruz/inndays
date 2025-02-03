@@ -210,6 +210,11 @@ section {
 }
 
 @media (max-width: 1040px) {
+
+  .home:before {
+    width: 100%;
+  }
+
   header {
     padding: 12px 20px;
   }
@@ -220,5 +225,99 @@ section {
 
   .home .media-icons {
     right: 15px;
+  }
+}
+
+
+
+@media (max-width: 1040px) {
+  header {
+    padding: 12px 20px;
+  }
+
+  section {
+    padding: 100px 20px;
+  }
+
+  .home:before {
+    width: 100%;
+  }
+
+
+  .home .content {
+    width: 80%; /* Reduce width for smaller screens */
+  }
+
+  .home .media-icons {
+    right: 20px; /* Adjust positioning */
+  }
+}
+
+@media (max-width: 768px) {
+
+  .home:before {
+    width: 100%;
+  }
+
+
+  .home .content {
+    width: 70%; /* Further reduce width */
+  }
+
+  .home .content h1 {
+    font-size: 2.5em;
+    line-height: 55px;
+  }
+
+  .home .content h1 span {
+    font-size: 1em;
+  }
+
+  .home .content p {
+    font-size: 0.9em;
+  }
+
+  .home .content a {
+    font-size: 1em;
+    padding: 12px 30px;
+  }
+
+  .home .media-icons {
+    right: 10px; /* Ensure it stays visible */
+  }
+}
+
+@media (max-width: 480px) {
+
+  .home:before {
+    width: 100%;
+  }
+
+  
+  .home .content {
+    width: 90%; /* Allow more width for readability */
+
+  }
+
+  .home .content h1 {
+    font-size: 2em;
+    line-height: 45px;
+  }
+
+  .home .content h1 span {
+    font-size: 0.9em;
+  }
+
+  .home .content p {
+    font-size: 0.85em;
+  }
+
+  .home .content a {
+    font-size: 0.9em;
+    padding: 10px 25px;
+  }
+
+  .home .media-icons {
+    right: 5px; /* Prevent overlap */
   }
 }
