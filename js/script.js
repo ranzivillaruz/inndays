@@ -1,92 +1,42 @@
-import React, { useState } from 'https://esm.sh/react@18.2.0'
-import cn from "https://cdn.skypack.dev/classnames@2.3.2";
-import ReactDOM from 'https://esm.sh/react-dom@18.2.0'
+const sign_in_btn = document.querySelector("#sign-in-btn");
+const sign_up_btn = document.querySelector("#sign-up-btn");
+const container = document.querySelector(".container");
 
-function Demo() {
-  const [switched, setSwitched] = useState(false);
-  return (
-    <div className="local-container">
-      <div className={cn('demo', { 's--switched': switched })}>
-        <div className="demo__inner">
-          <div className="demo__forms">
-            <div className="demo__form">
-              <div className="demo__form-content">
-                <FakeForm
-                  heading="Welcome back"
-                  fields={['email', 'password']}
-                  submitLabel="Sign in"
-                />
-              </div>
-            </div>
-            <div className="demo__form">
-              <div className="demo__form-content">
-                <FakeForm
-                  heading="Time to feel like home"
-                  fields={['name', 'email', 'password']}
-                  submitLabel="Sign up"
-                />
-              </div>
-            </div>
-          </div>
-          <div className="demo__switcher">
-            <div className="demo__switcher-inner">
-              <div className="demo__switcher-content">
-                <div className="demo__switcher-text">
-                  <div>
-                    <h3>New here?</h3>
-                    <p>
-                      Sign up and discover great amount of new opportunities!
-                    </p>
-                  </div>
-                  <div>
-                    <h3>One of us?</h3>
-                    <p>
-                      If you already has an account, just sign in. We&apos;ve
-                      missed you!
-                    </p>
-                  </div>
-                </div>
-                <button
-                  className="demo__switcher-btn"
-                  onClick={() => setSwitched(!switched)}
-                >
-                  <span className="animated-border" />
-                  <span className="demo__switcher-btn-inner">
-                    <span>Sign Up</span>
-                    <span>Sign In</span>
-                  </span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
+sign_up_btn.addEventListener("click", () => {
+  container.classList.add("sign-up-mode");
+});
 
-interface FakeFormProps {
-  heading: string;
-  fields: string[];
-  submitLabel: string;
-}
+sign_in_btn.addEventListener("click", () => {
+  container.classList.remove("sign-up-mode");
+});
+document.addEventListener("DOMContentLoaded", function () {
+  let popup = document.getElementById("popupMessage");
 
-function FakeForm({ heading, fields, submitLabel }: FakeFormProps) {
-  return (
-    <form className="form" onSubmit={(e) => e.preventDefault()}>
-      <div className="form__heading">{heading}</div>
-      {fields.map((field) => (
-        <label className="form__field" key={field}>
-          <span className="form__field-label">{field}</span>
-          <input className="form__field-input" type={field} />
-        </label>
-      ))}
-      <button type="submit" className="form__submit">
-        {submitLabel}
-      </button>
-    </form>
-  );
-}
+  if (popup) {
+      console.log("Popup found, setting timeout..."); // Debug log
 
+      // Auto-hide after 3 seconds
+      setTimeout(() => {
+          popup.style.opacity = "0";  // Fade out
+          setTimeout(() => {
+              popup.style.display = "none"; // Hide completely
+          }, 500); 
+      }, 3000);
 
-ReactDOM.render(<Demo />, document.querySelector('#demo'));
+      // Hide when clicking an input field
+      document.querySelectorAll("input").forEach(input => {
+          input.addEventListener("click", function () {
+              console.log("Input clicked, hiding popup"); // Debug log
+              popup.style.opacity = "0";
+              setTimeout(() => {
+                  popup.style.display = "none";
+              }, 500);
+          });
+      });
+  } else {
+      console.log("Popup not found!"); // Debug log
+  }
+});
+document.querySelector('input[name="contact"]').addEventListener('input', function (e) {
+  e.target.value = e.target.value.replace(/[^0-9]/g, ''); // Remove non-numeric characters
+});
