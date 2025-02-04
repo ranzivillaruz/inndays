@@ -49,7 +49,7 @@ include 'header.php';
                 </select>
             </div>
         </div>
-        <button class="add_listing" onclick="window.location.href='addproperty.php';">List your Property</button>
+        <button class="add_listing" onclick="window.location.href='addproperty.php';">Filter</button>
     </div>
 
     <!-- Card Container -->
