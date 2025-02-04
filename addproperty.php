@@ -60,6 +60,7 @@ if (isset($_SESSION['user_id'])) { // Replace 'user_id' with your session variab
             <button type="button" name="property_type" value="BEACH FRONT">Beach Front</button>
             <button type="button" name="property_type" value="LAKE VIEW">Lake View</button>
             <button type="button" name="property_type" value="MOUNTAIN SIDE">Mountain Side</button>
+            <button type="button" name="property_type" value="RIVER SIDE">River Side</button>
             <input type="hidden" id="property_type_hidden" name="property_type" value="">
         </div><br><br>
 
@@ -75,9 +76,9 @@ if (isset($_SESSION['user_id'])) { // Replace 'user_id' with your session variab
         <label for="availability">Availability</label><br>
         <select name="availability" id="availability" required>
             <option value="all">All</option>
-            <option value="today">Today</option>
-            <option value="week">Next Week</option>
-            <option value="month">Next Month</option>
+            <option value="Today">Today</option>
+            <option value="Next Week">Next Week</option>
+            <option value="Next Month">Next Month</option>
         </select><br><br>
 
         <label for="photos">Upload your Photos!</label><br>

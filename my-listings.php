@@ -1,4 +1,7 @@
 <?php
+// Start the session to access logged-in user's data
+session_start();
+
 // Define the page title and current page for the header
 $pageTitle = "My Listings - innDays";
 $currentPage = "My Listings";
@@ -19,14 +22,24 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Fetch all listings based on filters
-$whereClauses = [];
-
-if (!empty($_GET['property_type'])) {
-    $property_type = $conn->real_escape_string($_GET['property_type']);
-    $whereClauses[] = "LOWER(property_type) = LOWER('$property_type')";
+// Ensure the user is logged in and fetch their name from the session
+if (!isset($_SESSION['user_name'])) {
+    die("You must be logged in to view this page.");
 }
 
+$user_name = $_SESSION['user_name']; // Get the logged-in user's name
+
+// Fetch all listings based on filters and user's name
+$whereClauses = ["property_owner = '$user_name'"]; // Restrict listings to the logged-in user by their name
+
+// Apply filters for property type
+if (!empty($_GET['property_type'])) {
+    $property_type = trim($conn->real_escape_string($_GET['property_type']));
+    // Convert both user input and database value to upper case for case-insensitive matching
+    $whereClauses[] = "UPPER(property_type) = UPPER('$property_type')";
+}
+
+// Apply filters for price range
 if (!empty($_GET['price_range'])) {
     switch ($_GET['price_range']) {
         case '0-5000':
@@ -44,11 +57,13 @@ if (!empty($_GET['price_range'])) {
     }
 }
 
+// Apply filters for availability
 if (!empty($_GET['property_availability'])) {
     $property_availability = $conn->real_escape_string($_GET['property_availability']);
     $whereClauses[] = "property_availability = '$property_availability'";
 }
 
+// Build the WHERE clause
 $whereSQL = count($whereClauses) > 0 ? "WHERE " . implode(" AND ", $whereClauses) : "";
 $sql = "SELECT * FROM listings $whereSQL";
 $result = $conn->query($sql);
@@ -71,10 +86,10 @@ $result = $conn->query($sql);
         <label for="property_type">Offer Type:</label>
         <select name="property_type" id="property_type">
             <option value="">All</option>
-            <option value="Mountain Side">Mountain Side</option>
-            <option value="Beach Side">Beach Side</option>
-            <option value="Lake Side">Lake Side</option>
-            <option value="River Side">River Side</option>
+            <option value="MOUNTAIN SIDE">Mountain Side</option>
+            <option value="BEACH FRONT">Beach Side</option>
+            <option value="LAKE VIEW">Lake Side</option>
+            <option value="RIVER SIDE">River Side</option>
         </select>
 
         <label for="price_range">Price Range:</label>
@@ -89,9 +104,9 @@ $result = $conn->query($sql);
         <label for="property_availability">Availability:</label>
         <select name="property_availability" id="property_availability">
             <option value="">All</option>
-            <option value="today">Today</option>
-            <option value="next week">Next Week</option>
-            <option value="next month">Next Month</option>
+            <option value="Today">Today</option>
+            <option value="Next Week">Next Week</option>
+            <option value="Next Month">Next Month</option>
         </select>
 
         <button type="submit">Filter</button>
@@ -131,7 +146,7 @@ $result = $conn->query($sql);
                     echo "</tr>";
                 }
             } else {
-                echo "<tr><td colspan='4'>No listings found</td></tr>";
+                echo "<tr><td colspan='4'>No listings added</td></tr>";
             }
             ?>
         </tbody>
@@ -177,6 +192,9 @@ $result = $conn->query($sql);
 </html>
 
 <?php
+// Include the footer
 include 'footer.php';
+
+// Close the database connection
 $conn->close();
 ?>
