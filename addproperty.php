@@ -50,83 +50,76 @@ if (isset($_SESSION['user_id'])) { // Replace 'user_id' with your session variab
 
 <body>
     <h1>What type of Property do you want to Offer?</h1>
-    <p>Let's start with basic "typology" of the listing so that property seekers can find it under the right category on
-        innDays</p>
+    <p>Let's start with basic "typology" of the listing so that property seekers can find it under the right category on innDays</p>
 
     <form action="server/addproperty_controller.php" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="property_owner" value="<?php echo $user_name; ?>"> <--- hidden input for property
-            owner <label for="property_type">Property Type Location</label><br>
-            <div class="property-types">
-                <button type="button" name="property_type" value="beach_front">Beach Front</button>
-                <button type="button" name="property_type" value="lake_view">Lake View</button>
-                <button type="button" name="property_type" value="mountain_side">Mountain Side</button>
-                <input type="hidden" id="property_type_hidden" name="property_type" value="">
-            </div><br><br>
+        <input type="hidden" name="property_owner" value="<?php echo $user_name; ?>"> <!-- hidden input for property owner -->
 
-            <label for="title">Title</label><br>
-            <input type="text" id="title" name="title" placeholder="Eg. 2 Bedroom Apartment with SeaView"
-                required><br><br>
+        <label for="property_type">Property Type Location</label><br>
+        <div class="property-types">
+            <button type="button" name="property_type" value="BEACH FRONT">Beach Front</button>
+            <button type="button" name="property_type" value="LAKE VIEW">Lake View</button>
+            <button type="button" name="property_type" value="MOUNTAIN SIDE">Mountain Side</button>
+            <input type="hidden" id="property_type_hidden" name="property_type" value="">
+        </div><br><br>
 
-            <label for="description">Description</label><br>
-            <textarea id="description" name="description" required></textarea><br><br>
+        <label for="title">Title</label><br>
+        <input type="text" id="title" name="title" placeholder="Eg. 2 Bedroom Apartment with SeaView" required><br><br>
 
-            <label for="price">Price (P)</label><br>
-            <input type="number" id="price" name="price" required><br><br>
+        <label for="description">Description</label><br>
+        <textarea id="description" name="description" required></textarea><br><br>
 
-            <label for="availability">Availability</label><br>
-            <select name="availability" id="availability" required>
-                <option value="all">All</option>
-                <option value="today">Today</option>
-                <option value="week">Next Week</option>
-                <option value="month">Next Month</option>
-            </select><br><br>
+        <label for="price">Price (P)</label><br>
+        <input type="number" id="price" name="price" required><br><br>
 
-            <label for="photos">Upload your Photos!</label><br>
-            <p>Users looking for property ignore properties without photos. Make your property stand out by uploading
-                photos.
-            </p>
-            <div id="photo-uploads">
-                <input type="file" name="photo1" accept="image/*"><br>
-                <input type="file" name="photo2" accept="image/*"><br>
-                <input type="file" name="photo3" accept="image/*"><br>
-                <input type="file" name="photo4" accept="image/*"><br>
-                <input type="file" name="photo5" accept="image/*"><br>
-            </div><br>
+        <label for="availability">Availability</label><br>
+        <select name="availability" id="availability" required>
+            <option value="all">All</option>
+            <option value="today">Today</option>
+            <option value="week">Next Week</option>
+            <option value="month">Next Month</option>
+        </select><br><br>
 
-            <div class="location-section">
-                <h2>Where is your property located?</h2>
-                <p>Location is everything! Give us as much information about the location of your property as you can so
-                    that
-                    users can find property easily.</p>
+        <label for="photos">Upload your Photos!</label><br>
+        <p>Users looking for property ignore properties without photos. Make your property stand out by uploading photos.</p>
+        <div id="photo-uploads">
+            <input type="file" name="photo1" accept="image/*" required><br>
+            <input type="file" name="photo2" accept="image/*" required><br>
+            <input type="file" name="photo3" accept="image/*" required><br>
+            <input type="file" name="photo4" accept="image/*" required><br>
+            <input type="file" name="photo5" accept="image/*" required><br>
+        </div><br>
 
-                <label for="province">Province</label><br>
-                <input type="text" id="province" name="province" required><br><br>
+        <div class="location-section">
+            <h2>Where is your property located?</h2>
+            <label for="province">Province</label><br>
+            <input type="text" id="province" name="province" required><br><br>
 
-                <label for="city">City</label><br>
-                <input type="text" id="city" name="city" required><br><br>
+            <label for="city">City</label><br>
+            <input type="text" id="city" name="city" required><br><br>
 
-                <label for="barangay">Barangay</label><br>
-                <input type="text" id="barangay" name="barangay" required><br><br>
+            <label for="barangay">Barangay</label><br>
+            <input type="text" id="barangay" name="barangay" required><br><br>
 
-                <label for="full_address">Full Address</label><br>
-                <input type="text" id="full_address" name="full_address" required><br><br>
+            <label for="full_address">Full Address</label><br>
+            <input type="text" id="full_address" name="full_address" required><br><br>
+        </div>
+
+        <div class="contact-details">
+            <h2>Please review your contact details</h2>
+            <p>Make sure your details are updated so our users can easily contact you at the right channel.</p>
+
+            <div class="contact-info">
+                <span class="contact-name"><?php echo $user_name; ?></span><br>
+                <span class="contact-email"><?php echo $user_email; ?></span><br>
+                <span class="contact-phone"><?php echo $user_contact; ?></span><br>
             </div>
+        </div><br>
 
-            <div class="contact-details">
-                <h2>Please review your contact details</h2>
-                <p>Make sure your details are updated so our users can easily contact you at the right channel.</p>
-
-                <div class="contact-info">
-                    <span class="contact-name"><?php echo $user_name; ?></span><br>
-                    <span class="contact-email"><?php echo $user_email; ?></span><br>
-                    <span class="contact-phone"><?php echo $user_contact; ?></span><br>
-                </div>
-            </div><br>
-
-            <div class="buttons">
-                <button type="button" class="cancel-button">Cancel</button>
-                <input type="submit" value="Publish your Property">
-            </div>
+        <div class="buttons">
+            <button type="button" class="cancel-button">Cancel</button>
+            <input type="submit" value="Publish your Property">
+        </div>
     </form>
 
     <script>
