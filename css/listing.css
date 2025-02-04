@@ -89,6 +89,24 @@ select {
 }
 
 /* Responsive Design */
+@media (max-width: 1217px) {
+    .listing_header {
+        padding: 5px 100px 10px;
+    }
+
+    .header_items {
+        gap: 20px;
+    }
+
+    select {
+        width: 150px;
+    }
+
+    .add_listing {
+        padding: 10px 15px;
+    }
+    
+}
 @media (max-width: 1024px) {
     .listing_header {
         flex-wrap: wrap;
@@ -104,26 +122,60 @@ select {
     }
 }
 
-@media (max-width: 768px) {
-    .header_items {
-        flex-direction: column;
-        align-items: center;
+@media (max-width: 857px) {
+    .listing_header {
+        padding: 5px 50px 10px;
     }
 
-    .header_item {
-        flex: 1 1 100%;
+    .header_items {
+        gap: 10px;
+    }
+
+    select {
+        width: 150px;
     }
 
     .add_listing {
-        align-self: center;
-        width: 100%;
-        text-align: center;
+        padding: 10px 15px;
     }
 }
+@media (max-width: 774px) {
+    .card img {
+        height: 250px;
+    }
+    .card-container {
+        width: 90%;
+    }
+}
+@media (max-width: 735px) {
+    .listing_header {
+        padding: 5px 5px 10px;
+    }
 
+    .header_items {
+        gap: 5px;
+    }
+
+    select {
+        width: 120px;
+    }
+
+    .add_listing {
+        padding: 10px 15px;
+    }
+
+    .card img {
+        height: 200px;
+    }
+
+    .card-content h4 {
+        font-size: 16px;
+    }
+}
 @media (max-width: 480px) {
     .listing_header {
         padding: 10px;
+
     }
 
     select {
@@ -134,7 +186,6 @@ select {
     .add_listing {
         font-size: 14px;
         padding: 8px 15px;
-        display: none;
     }
 
     .card img {
@@ -143,5 +194,41 @@ select {
 
     .card-content h4 {
         font-size: 16px;
+    }
+}
+
+@media (max-width: 389px) {
+    .header_items {
+        display: flex;
+        flex-direction: column; /* Stack rows vertically */
+        gap: 10px; /* Add spacing between rows */
+    }
+
+    .header_item {
+        display: flex; /* Align label and select button horizontally */
+        align-items: center; /* Vertically align items */
+        justify-content: space-between; /* Space between label and select button */
+        width: 100%;
+    }
+
+    .header_item h3 {
+        margin: 0;
+        font-size: 14px; /* Ensure label size is consistent */
+        flex: 0 0 35%; /* Reserve 35% of the row for labels */
+        text-align: left;
+    }
+
+    select {
+        flex: 1; /* Allow the select button to fill the remaining space */
+        max-width: 60%; /* Prevent the select button from being too wide */
+        padding: 6px;
+        font-size: 14px;
+    }
+
+    .add_listing {
+        margin-top: 15px;
+        width: 25%; /* Ensure the button spans the full width */
+        padding: 10px;
+        text-align: center;
     }
 }
