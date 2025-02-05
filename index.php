@@ -48,7 +48,7 @@ include_once 'header.php';
 </section>
 
 
-    <section class="parallax-section">
+    <section class="parallax-section" style="background-image: url('assets/footerbg.jpg');">
         <div class="overlay">
             <div class="carousel-container">
                 <div class="carousel">
@@ -60,16 +60,6 @@ include_once 'header.php';
         </div>
     </section>
 
-    <section class="parallax-section" style="background-image: url('assets/freepik__upload__30746.png');">
-        <div class="overlay">
-            <h3>Discover Our Features</h3>
-            <ul>
-                <li>Register - Erika</li>
-                <li>Login - Erika</li>
-                <li>Footer (Contact Us)</li>
-            </ul>
-        </div>
-    </section>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
