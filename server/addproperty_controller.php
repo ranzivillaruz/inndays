@@ -1,11 +1,11 @@
 <?php
+session_start(); // Start session to store popup message
 
 // Include the database connection
 require_once 'connection.php'; // Adjust path if needed
 
 class AddPropertyController
 {
-
     private $conn;
 
     public function __construct()
@@ -27,7 +27,7 @@ class AddPropertyController
             $city = $this->conn->real_escape_string($_POST['city']);
             $barangay = $this->conn->real_escape_string($_POST['barangay']);
             $full_address = $this->conn->real_escape_string($_POST['full_address']);
-            $property_owner = $this->conn->real_escape_string($_POST['property_owner']); // From the hidden input
+            $property_owner = $this->conn->real_escape_string($_POST['property_owner']);
             $property_availability = $this->conn->real_escape_string($_POST['availability']);
 
             // Handle image uploads (now storing binary data)
@@ -37,17 +37,17 @@ class AddPropertyController
             $sql = "INSERT INTO Listings (property_type, property_title, property_desc, property_price, property_pic1, property_pic2, property_pic3, property_pic4, property_pic5, property_province, property_city, property_barangay, property_address, property_owner, property_availability) 
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-            // Prepare the statement
             $stmt = $this->conn->prepare($sql);
 
-            // Check for errors in preparation
             if ($stmt === false) {
-                die('MySQL prepare failed: ' . $this->conn->error);
+                $_SESSION['popupMessage'] = 'Database error: ' . $this->conn->error;
+                $_SESSION['popupType'] = 'error';
+                header('Location: ../addproperty.php');
+                exit();
             }
 
-            // Bind the parameters (binary data for images)
             $stmt->bind_param(
-                'sssssssssssssss',  // Define the types for each parameter (all are strings in this case)
+                'sssssssssssssss',
                 $property_type,
                 $title,
                 $description,
@@ -65,15 +65,17 @@ class AddPropertyController
                 $property_availability
             );
 
-            // Execute the statement
             if ($stmt->execute()) {
-                echo "New record created successfully";
+                $_SESSION['popupMessage'] = 'Sucessfully published!';
+                $_SESSION['popupType'] = 'success';
             } else {
-                echo "Error: " . $stmt->error;
+                $_SESSION['popupMessage'] = 'Error: ' . $stmt->error;
+                $_SESSION['popupType'] = 'error';
             }
 
-            // Close the statement
             $stmt->close();
+            header('Location: ../addproperty.php'); // Redirect back to the form
+            exit();
         }
     }
 
@@ -84,12 +86,10 @@ class AddPropertyController
         for ($i = 1; $i <= 5; $i++) {
             $file_key = 'photo' . $i;
             if (isset($_FILES[$file_key]) && $_FILES[$file_key]['error'] == 0) {
-                // Read the file content
                 $file_content = file_get_contents($_FILES[$file_key]['tmp_name']);
-                // Store the binary data (image content)
                 $uploaded_files[] = $file_content;
             } else {
-                $uploaded_files[] = null; // No image uploaded, set as null
+                $uploaded_files[] = null;
             }
         }
 
@@ -105,5 +105,4 @@ class AddPropertyController
 // Instantiate the controller and process the form
 $controller = new AddPropertyController();
 $controller->processForm();
-
 ?>
