@@ -17,20 +17,19 @@ if (isset($_GET['prices']) && $_GET['prices'] != 'all') {
             $whereClauses[] = "property_price BETWEEN 0 AND 5000";
             break;
         case 'medium':
-            $whereClauses[] = "property_price BETWEEN 5000 AND 10000";
+            $whereClauses[] = "property_price BETWEEN 5001 AND 10000";
             break;
         case 'high':
-            $whereClauses[] = "property_price BETWEEN 10000 AND 20000";
+            $whereClauses[] = "property_price BETWEEN 10001 AND 20000";
             break;
         case 'high2': // Corrected case for "20000 and above"
             $whereClauses[] = "property_price > 20000";
             break;
     }
 }
-
 if (isset($_GET['availability']) && $_GET['availability'] != 'all') {
     $property_availability = $conn->real_escape_string($_GET['availability']);
-    $whereClauses[] = "property_availability = '$property_availability'";
+    $sql = " AND property_availability = '$property_availability'";
 }
 
 $whereSQL = count($whereClauses) > 0 ? "WHERE " . implode(" AND ", $whereClauses) : "";
@@ -71,11 +70,11 @@ $result = $conn->query($sql);
                         <option value="low" <?php if (isset($_GET['prices']) && $_GET['prices'] == 'low')
                             echo 'selected'; ?>>₱0 - ₱5 000</option>
                         <option value="medium" <?php if (isset($_GET['prices']) && $_GET['prices'] == 'medium')
-                            echo 'selected'; ?>>₱5 000 - ₱10 000</option>
+                            echo 'selected'; ?>>₱5 001 - ₱10 000</option>
                         <option value="high" <?php if (isset($_GET['prices']) && $_GET['prices'] == 'high')
-                            echo 'selected'; ?>>₱10 000 - ₱20 000</option>
-                        <option value="high" <?php if (isset($_GET['prices']) && $_GET['prices'] == 'high' && $_GET['prices'] != 'medium' && $_GET['prices'] != 'low')
-                            echo 'selected'; ?>>₱20 000 and above
+                            echo 'selected'; ?>>₱10 001 - ₱20 000</option>
+                        <option value="high2" <?php if (isset($_GET['prices']) && $_GET['prices'] == 'high2' && $_GET['prices'] != 'medium' && $_GET['prices'] != 'low')
+                            echo 'selected'; ?>>₱20 001 and above
                         </option>
                     </select>
                 </div>

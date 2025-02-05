@@ -97,12 +97,12 @@ if (!empty($_GET['price_range'])) {
             $whereClauses[] = "property_price BETWEEN 0 AND 5000";
             break;
         case '5001-10000':
-            $whereClauses[] = "property_price BETWEEN 5001 AND 10000";
+            $whereClauses[] = "property_price BETWEEN 5000 AND 10000";
             break;
-        case '10001-20000':
-            $whereClauses[] = "property_price BETWEEN 10001 AND 20000";
+        case '10000-20000':
+            $whereClauses[] = "property_price BETWEEN 10000 AND 20000";
             break;
-        case '20000+':
+        case '20001+':
             $whereClauses[] = "property_price > 20000";
             break;
     }
@@ -151,9 +151,9 @@ $result = $conn->query($sql);
                             <select name="price_range" id="price_range">
                                 <option value="">All</option>
                                 <option value="0-5000">₱0 - ₱5,000</option>
-                                <option value="5000-10001">₱5,001 - ₱10,000</option>
-                                <option value="10001-20000">₱10,001 - ₱20,000</option>
-                                <option value="20000+">₱20,001 and above</option>
+                                <option value="5000-10000">₱5,000 - ₱10,000</option>
+                                <option value="10000-20000">₱10,000 - ₱20,000</option>
+                                <option value="20000+">₱20,000 and above</option>
                             </select>
                         </div>
                         <div class="header_item">
