@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (!isset($_SESSION['user_name'])) {
+    header("Location: landing.php");
+    exit(); // Stop further script execution
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
