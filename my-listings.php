@@ -24,12 +24,6 @@ if (!isset($_SESSION['user_name'])) {
 
 $user_name = $_SESSION['user_name'];
 
-// Check if the user is logged in; if not, redirect to landing.php
-if (!isset($_SESSION['user_name'])) {
-    header("Location: landing.php");
-    exit(); // Stop further script execution
-}
-
 // Handle Delete Action
 if (isset($_GET['delete_id'])) {
     $delete_id = $conn->real_escape_string($_GET['delete_id']);
@@ -40,6 +34,8 @@ if (isset($_GET['delete_id'])) {
     if ($ownership_result->num_rows > 0) {
         $delete_sql = "DELETE FROM listings WHERE property_id = '$delete_id'";
         if ($conn->query($delete_sql)) {
+            $_SESSION['popupMessage'] = "Listing deleted successfully!";
+            $_SESSION['popupType'] = "success"; // You can add "error" for errors
             header("Location: my-listings.php");
             exit();
         } else {
@@ -49,6 +45,7 @@ if (isset($_GET['delete_id'])) {
         echo "You do not have permission to delete this listing.";
     }
 }
+
 
 // Handle Edit Action (Save Changes)
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['editPropertyId'])) {
@@ -72,6 +69,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['editPropertyId'])) {
             WHERE property_id = '$property_id'";
 
         if ($conn->query($update_sql)) {
+            $_SESSION['popupMessage'] = "Listing updated successfully!";
+            $_SESSION['popupType'] = "success";
             header("Location: my-listings.php");
             exit();
         } else {
@@ -81,6 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['editPropertyId'])) {
         echo "You do not have permission to edit this listing.";
     }
 }
+
 
 
 // Fetch all listings 
@@ -398,9 +398,32 @@ $result = $conn->query($sql);
             });
         });
 
+        document.addEventListener("DOMContentLoaded", function () {
+            let popup = document.getElementById("popupMessage");
+            if (popup) {
+                setTimeout(() => {
+                    popup.style.opacity = "0";
+                    setTimeout(() => {
+                        popup.style.display = "none";
+                    }, 500); // Adjust time for fade out
+                }, 3000); // Message disappears after 3 seconds
+            }
+        });
+
 
     </script>
 </body>
+
+<?php if (isset($_SESSION['popupMessage'])): ?>
+    <div class="popup <?php echo $_SESSION['popupType']; ?>" id="popupMessage">
+        <span><?php echo $_SESSION['popupMessage']; ?></span>
+    </div>
+    <?php
+    unset($_SESSION['popupMessage']);
+    unset($_SESSION['popupType']);
+?>
+<?php endif; ?>
+
 
 </html>
 
