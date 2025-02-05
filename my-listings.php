@@ -245,7 +245,7 @@ $result = $conn->query($sql);
         <p id="detailsPrice"></p>
         <p id="detailsDesc"></p>
         <p id="detailsLocation"></p>
-        <div id="detailsImages"></div>
+        <div id="detailsImages"></div> 
     </div>
 
     <div id="editModal">
