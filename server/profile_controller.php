@@ -1,4 +1,4 @@
-<?php
+<?php 
 session_start();
 include("connection.php");
 
@@ -11,6 +11,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $user_id = $_SESSION['user_id'];
+$old_user_name = $_SESSION['user_name']; // Store the old username before update
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['name'] ?? '');
@@ -25,25 +26,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    // Prepare query
+    // Update users table
     if (!empty($password)) {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         $sql = "UPDATE users SET name = ?, contact = ?, email = ?, password = ? WHERE id = ?";
-    } else {
-        $sql = "UPDATE users SET name = ?, contact = ?, email = ? WHERE id = ?";
-    }
-
-    $stmt = $conn->prepare($sql);
-
-    if (!empty($password)) {
+        $stmt = $conn->prepare($sql);
         $stmt->bind_param("ssssi", $name, $contact, $email, $hashed_password, $user_id);
     } else {
+        $sql = "UPDATE users SET name = ?, contact = ?, email = ? WHERE id = ?";
+        $stmt = $conn->prepare($sql);
         $stmt->bind_param("sssi", $name, $contact, $email, $user_id);
     }
 
     if ($stmt->execute()) {
-        // Update session with the new name
-        $_SESSION['user_name'] = $name; // Update session variable
+        // Update listings table only if the username has changed
+        if ($old_user_name !== $name) {
+            $updateListingsSql = "UPDATE listings SET property_owner = ? WHERE property_owner = ?";
+            $updateListingsStmt = $conn->prepare($updateListingsSql);
+            $updateListingsStmt->bind_param("ss", $name, $old_user_name);
+            $updateListingsStmt->execute();
+            $updateListingsStmt->close();
+        }
+
+        // Update session variables
+        $_SESSION['user_name'] = $name;
 
         $_SESSION['popupMessage'] = 'Profile updated successfully!';
         $_SESSION['popupType'] = 'success';
@@ -55,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->close();
     $conn->close();
 
-    // Redirect to the profile page or wherever you need to show the updated name
+    // Redirect to profile page
     header('Location: ../profile.php');
     exit();
 }
