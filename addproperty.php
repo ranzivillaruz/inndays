@@ -49,11 +49,15 @@ if (isset($_SESSION['user_id'])) { // Replace 'user_id' with your session variab
 </head>
 
 <body>
-    <h1>What type of Property do you want to Offer?</h1>
-    <p>Let's start with basic "typology" of the listing so that property seekers can find it under the right category on innDays</p>
+
 
     <form action="server/addproperty_controller.php" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="property_owner" value="<?php echo $user_name; ?>"> <!-- hidden input for property owner -->
+        <input type="hidden" name="property_owner" value="<?php echo $user_name; ?>">
+        <!-- hidden input for property owner -->
+        <h2>What type of Property do you want to Offer?</h2>
+        <p>Let's start with basic "typology" of the listing so that property seekers can find it under the right
+            category on
+            innDays</p>
 
         <label for="property_type">Property Type Location</label><br>
         <div class="property-types">
@@ -61,7 +65,7 @@ if (isset($_SESSION['user_id'])) { // Replace 'user_id' with your session variab
             <button type="button" name="property_type" value="LAKE VIEW">Lake View</button>
             <button type="button" name="property_type" value="MOUNTAIN SIDE">Mountain Side</button>
             <button type="button" name="property_type" value="RIVER SIDE">River Side</button>
-            <input type="hidden" id="property_type_hidden" name="property_type" value="">
+            <input type="hidden" id="property_type_hidden" name="property_type" value="" required>
         </div><br><br>
 
         <label for="title">Title</label><br>
@@ -81,8 +85,9 @@ if (isset($_SESSION['user_id'])) { // Replace 'user_id' with your session variab
             <option value="Next Month">Next Month</option>
         </select><br><br>
 
-        <label for="photos">Upload your Photos!</label><br>
-        <p>Users looking for property ignore properties without photos. Make your property stand out by uploading photos.</p>
+        <h2 for="photos">Upload your Photos!</h2><br>
+        <p>Users looking for property ignore properties without photos. Make your property stand out by uploading
+            photos.</p>
         <div id="photo-uploads">
             <input type="file" name="photo1" accept="image/*" required><br>
             <input type="file" name="photo2" accept="image/*" required><br>
@@ -111,14 +116,19 @@ if (isset($_SESSION['user_id'])) { // Replace 'user_id' with your session variab
             <p>Make sure your details are updated so our users can easily contact you at the right channel.</p>
 
             <div class="contact-info">
-                <span class="contact-name"><?php echo $user_name; ?></span><br>
-                <span class="contact-email"><?php echo $user_email; ?></span><br>
-                <span class="contact-phone"><?php echo $user_contact; ?></span><br>
+                <div class="icon-text-container">
+                    <div class="icon-container"><img src="assets/user.png" alt="User Icon"></div>
+                    <div class="info-container">
+                        <span class="contact-name"><?php echo $user_name; ?></span><br>
+                        <span class="contact-email"><?php echo $user_email; ?></span><br>
+                        <span class="contact-phone"><?php echo $user_contact; ?></span><br>
+                    </div>
+                </div>
             </div>
         </div><br>
 
         <div class="buttons">
-            <button type="button" class="cancel-button">Cancel</button>
+            <button type="button" class="cancel-button" onclick="window.location.href='index.php';">Cancel</button>
             <input type="submit" value="Publish your Property">
         </div>
     </form>

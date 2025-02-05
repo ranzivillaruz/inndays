@@ -48,20 +48,20 @@ class AddPropertyController
             // Bind the parameters (binary data for images)
             $stmt->bind_param(
                 'sssssssssssssss',  // Define the types for each parameter (all are strings in this case)
-                $property_type, 
-                $title, 
-                $description, 
-                $price, 
-                $uploaded_files[0], 
-                $uploaded_files[1], 
-                $uploaded_files[2], 
-                $uploaded_files[3], 
-                $uploaded_files[4], 
-                $province, 
-                $city, 
-                $barangay, 
-                $full_address, 
-                $property_owner, 
+                $property_type,
+                $title,
+                $description,
+                $price,
+                $uploaded_files[0],
+                $uploaded_files[1],
+                $uploaded_files[2],
+                $uploaded_files[3],
+                $uploaded_files[4],
+                $province,
+                $city,
+                $barangay,
+                $full_address,
+                $property_owner,
                 $property_availability
             );
 

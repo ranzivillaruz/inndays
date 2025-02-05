@@ -26,13 +26,14 @@
 
             <div id="userProfileOptions" class="user-profile-options">
                 <li><a href="profile.php">&nbsp;&nbsp;&nbsp;Profile</a></li>
+                <li><a href="addproperty.php">&nbsp;&nbsp;&nbsp;List Your Property</a></li>
                 <li><a href="my-listings.php">&nbsp;&nbsp;&nbsp;My Listings</a></li>
                 <li><a href="logout.php">&nbsp;&nbsp;&nbsp;Logout</a></li>
             </div>
 
             <li><a href="index.php" class="<?php echo ($currentPage === 'home') ? 'active' : ''; ?>">Home</a></li>
-            <li><a href="listings.php" class="<?php echo ($currentPage === 'listings') ? 'active' : ''; ?>">Listings</a>
-            </li>
+            <li><a href="addproperty.php" class="<?php echo ($currentPage === 'addproperty') ? 'active' : ''; ?>">List Your Property</a></li>
+            <li><a href="listings.php" class="<?php echo ($currentPage === 'listings') ? 'active' : ''; ?>">Listings</a></li>
             <li><a href="faq.php" class="<?php echo ($currentPage === 'faq') ? 'active' : ''; ?>">FAQ</a></li>
         </ul>
 
@@ -40,7 +41,10 @@
             <li><img src="assets/inndays w text.png" class="innDays-logo" alt="innDays Logo"></li>
             <li><a href="index.php"
                     class="hideOnSmallScreens <?php echo ($currentPage === 'home') ? 'active' : ''; ?>">Home</a></li>
-            <li><a href="listings.php"
+                    <li><a href="addproperty.php"
+                    class="hideOnSmallScreens <?php echo ($currentPage === 'addproperty') ? 'active' : ''; ?>">List Your Property</a>
+            </li>
+                    <li><a href="listings.php"
                     class="hideOnSmallScreens <?php echo ($currentPage === 'listings') ? 'active' : ''; ?>">Listings</a>
             </li>
             <li><a href="faq.php"

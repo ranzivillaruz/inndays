@@ -1,10 +1,42 @@
 <?php
-// Define the page title and current page for the header
 $pageTitle = "Listings - innDays";
 $currentPage = "home";
-
-// Include the reusable header
 include 'header.php';
+require_once 'server/connection.php';
+
+$whereClauses = [];
+
+if (!empty($_GET['property_type'])) {
+    $property_type = trim($conn->real_escape_string($_GET['property_type']));
+    $whereClauses[] = "UPPER(property_type) = UPPER('$property_type')";
+}
+
+if (isset($_GET['prices']) && $_GET['prices'] != 'all') {
+    switch ($_GET['prices']) {
+        case 'low':
+            $whereClauses[] = "property_price BETWEEN 0 AND 5000";
+            break;
+        case 'medium':
+            $whereClauses[] = "property_price BETWEEN 5000 AND 10000";
+            break;
+        case 'high':
+            $whereClauses[] = "property_price BETWEEN 10000 AND 20000";
+            break;
+        case 'high2': // Corrected case for "20000 and above"
+            $whereClauses[] = "property_price > 20000";
+            break;
+    }
+}
+
+if (isset($_GET['availability']) && $_GET['availability'] != 'all') {
+    $property_availability = $conn->real_escape_string($_GET['availability']);
+    $whereClauses[] = "property_availability = '$property_availability'";
+}
+
+$whereSQL = count($whereClauses) > 0 ? "WHERE " . implode(" AND ", $whereClauses) : "";
+$sql = "SELECT * FROM Listings $whereSQL"; // Corrected table name to "Listings"
+$result = $conn->query($sql);
+
 ?>
 
 <!DOCTYPE html>
@@ -18,85 +50,166 @@ include 'header.php';
 </head>
 
 <body>
-    <!-- Listing Header -->
     <div class="listing_header">
-        <div class="header_items">
-            <div class="header_item">
-                <h3>OFFER TYPE</h3>
-                <select name="offer-type" id="offer-type">
-                    <option value="all">All</option>
-                    <option value="room">Beach Front</option>
-                    <option value="house">Lake View</option>
-                    <option value="apartment">Mountain Side</option>
-                </select>
+        <form action="" method="get">
+            <div class="header_container">
+            <div class="header_items">
+                <div class="header_item">
+                    <h3>OFFER TYPE</h3>
+                    <select name="property_type" id="property_type">
+                        <option value="">All</option>
+                        <option value="MOUNTAIN SIDE">Mountain Side</option>
+                        <option value="BEACH FRONT">Beach Front</option>
+                        <option value="LAKE VIEW">Lake View</option>
+                        <option value="RIVER SIDE">River Side</option>
+                    </select>
+                </div>
+                <div class="header_item">
+                    <h3>PRICES</h3>
+                    <select name="prices" id="prices">
+                        <option value="all">All</option>
+                        <option value="low" <?php if (isset($_GET['prices']) && $_GET['prices'] == 'low')
+                            echo 'selected'; ?>>₱0 - ₱5 000</option>
+                        <option value="medium" <?php if (isset($_GET['prices']) && $_GET['prices'] == 'medium')
+                            echo 'selected'; ?>>₱5 000 - ₱10 000</option>
+                        <option value="high" <?php if (isset($_GET['prices']) && $_GET['prices'] == 'high')
+                            echo 'selected'; ?>>₱10 000 - ₱20 000</option>
+                        <option value="high" <?php if (isset($_GET['prices']) && $_GET['prices'] == 'high' && $_GET['prices'] != 'medium' && $_GET['prices'] != 'low')
+                            echo 'selected'; ?>>₱20 000 and above
+                        </option>
+                    </select>
+                </div>
+                <div class="header_item">
+                    <h3>AVAILABILITY</h3>
+                    <select name="availability" id="availability">
+                        <option value="all">All</option>
+                        <option value="today" <?php if (isset($_GET['availability']) && $_GET['availability'] == 'today')
+                            echo 'selected'; ?>>Today</option>
+                        <option value="week" <?php if (isset($_GET['availability']) && $_GET['availability'] == 'week')
+                            echo 'selected'; ?>>Next Week</option>
+                        <option value="month" <?php if (isset($_GET['availability']) && $_GET['availability'] == 'month')
+                            echo 'selected'; ?>>Next Month</option>
+                    </select>
+                </div>
             </div>
-            <div class="header_item">
-                <h3>PRICES</h3>
-                <select name="prices" id="prices">
-                    <option value="all">All</option>
-                    <option value="low">₱5 000 - ₱10 000</option>
-                    <option value="medium">₱11 000 - ₱15 000</option>
-                    <option value="high">₱16 000 up</option>
-                </select>
+            <button type="submit" class="add_listing">Filter</button>
             </div>
-            <div class="header_item">
-                <h3>AVAILABILITY</h3>
-                <select name="availability" id="availability">
-                    <option value="all">All</option>
-                    <option value="today">Today</option>
-                    <option value="week">Next Week</option>
-                    <option value="month">Next Month</option>
-                </select>
-            </div>
-        </div>
-        <button class="add_listing" onclick="window.location.href='addproperty.php';">Filter</button>
+        </form>
     </div>
 
-    <!-- Card Container -->
+
     <div class="card-container">
-        <div class="card">
-            <img src="assets/mainbg.jpg" alt="Room 1">
-            <div class="card-content">
-                <h4>Room 1</h4>
-                <p>Lorem ipsum dolor sit amet.</p>
-            </div>
-        </div>
-        <div class="card">
-            <img src="assets/footerbg.jpg" alt="Room 2">
-            <div class="card-content">
-                <h4>Room 2</h4>
-                <p>Lorem ipsum dolor sit amet.</p>
-            </div>
-        </div>
-        <div class="card">
-            <img src="assets/gif-1.gif" alt="Room 3">
-            <div class="card-content">
-                <h4>Room 3</h4>
-                <p>Lorem ipsum dolor sit amet.</p>
-            </div>
-        </div>
-        <div class="card">
-            <img src="assets/gif-2.gif" alt="Room 4">
-            <div class="card-content">
-                <h4>Room 4</h4>
-                <p>Lorem ipsum dolor sit amet.</p>
-            </div>
-        </div>
-        <div class="card">
-            <img src="assets/gif-3.gif" alt="Room 5">
-            <div class="card-content">
-                <h4>Room 5</h4>
-                <p>Lorem ipsum dolor sit amet.</p>
-            </div>
-        </div>
-        <div class="card">
-            <img src="assets/carousel1.jpg" alt="Room 6">
-            <div class="card-content">
-                <h4>Room 6</h4>
-                <p>Lorem ipsum dolor sit amet.</p>
-            </div>
-        </div>
+
+        <?php
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                echo '<div class="card">';
+
+                echo '<div class="card-image-container">'; // Start of image container
+        
+                // Array to hold all image data URIs for this card
+                $imageURIs = [];
+
+                // Display the first image (property_pic1) using BLOB
+                if (!empty($row['property_pic1'])) {
+                    $imageData = $row['property_pic1'];
+                    $imageType = 'image/jpeg'; // Default, but we'll try to detect
+        
+                    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+                    $mime = finfo_file($finfo, 'data:image/jpeg;base64,' . base64_encode($imageData));
+                    finfo_close($finfo);
+
+                    if ($mime !== false) {
+                        $imageType = $mime;
+                    }
+
+                    $dataUri = 'data:' . $imageType . ';base64,' . base64_encode($imageData); // Correct Data URI
+                    $imageURIs[] = $dataUri; // Add to the array
+                    echo '<img src="' . $dataUri . '" alt="Property Image">';
+
+                } else {
+                    // Placeholder image
+                    echo '<img src="assets/placeholder.jpg" alt="No Image Available">';
+                }
+
+                // Display other images (property_pic2 to property_pic5)
+                for ($i = 2; $i <= 5; $i++) {
+                    $picColumn = 'property_pic' . $i;
+                    if (!empty($row[$picColumn])) {
+                        $imageData = $row[$picColumn];
+                        $imageType = 'image/jpeg'; // Default
+        
+                        // Use the provided MIME type directly
+                        $mime = 'data:image/jpeg;base64';
+
+                        $dataUri = $mime . ',' . base64_encode($imageData);
+                        $imageURIs[] = $dataUri; // Add to the array
+                        echo '<img src="' . $dataUri . '" alt="Property Image ' . $i . '" class="additional-image">'; // Add class
+                    }
+                }
+
+                echo '</div>'; // End of image container
+                echo '<button class="arrow arrow-left">&lt;</button>';
+                echo '<button class="arrow arrow-right">&gt;</button>';
+
+                echo '<div class="card-content">';
+                echo '<h3>' . $row['property_title'] . '</h3>';
+                echo '<p>Price: ₱' . $row['property_price'] . '</p>';
+                echo '<p>' . $row['property_desc'] . '</p>';
+                echo '</div>';
+                echo '</div>';
+            }
+        } else {
+            echo "No listings found.";
+        }
+        ?>
+
     </div>
+    <script>
+        const cards = document.querySelectorAll('.card');
+
+        cards.forEach(card => {
+            const imageContainer = card.querySelector('.card-image-container');
+            const images = imageContainer.querySelectorAll('img');
+            const arrowLeft = card.querySelector('.arrow-left');
+            const arrowRight = card.querySelector('.arrow-right');
+            const imageCount = images.length;
+            let currentImage = 0;
+            const imageWidth = imageContainer.offsetWidth; // Use container width for image width calculation
+
+            arrowLeft.addEventListener('click', () => {
+                currentImage = (currentImage - 1 + imageCount) % imageCount;
+                scrollToImage(currentImage);
+            });
+
+            arrowRight.addEventListener('click', () => {
+                currentImage = (currentImage + 1) % imageCount;
+                scrollToImage(currentImage);
+            });
+
+            function scrollToImage(index) {
+                imageContainer.scrollTo({
+                    left: index * imageWidth, // Scroll to the exact image position
+                    behavior: 'smooth' // Use smooth scrolling
+                });
+            }
+
+            // Optional: Center images on scroll end (improved snapScroll)
+            imageContainer.addEventListener('scrollend', () => {
+                snapScroll(imageContainer);
+            });
+
+            function snapScroll(element) {
+                const scrollLeft = element.scrollLeft;
+                const imageWidth = element.offsetWidth;
+                const index = Math.round(scrollLeft / imageWidth);
+                element.scrollTo({
+                    left: index * imageWidth,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>
