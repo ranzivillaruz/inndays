@@ -69,6 +69,7 @@ select {
 }
 
 .card-image-container {
+    scroll-behavior: smooth;
     width: 100%;
     height: fit-content; /* Or your desired height */
     overflow-x: auto; /* Enable horizontal scrolling */
@@ -78,6 +79,7 @@ select {
 }
 
 .card img {
+    transition: transform 0.3s ease;
     width: 100%;
     height: 200px;
     object-fit: cover;
@@ -107,26 +109,30 @@ select {
 .additional-image {
     width: 50px; /* Adjust size as needed */
     height: 50px;
-    margin: 5px;
     border-radius: 5px;
     object-fit: cover; /* Prevent image distortion */
     display: inline-block; /* Arrange images horizontally */
-    border: 1px solid #ccc; /* Optional border */
+}
+.card-image-container:hover .arrow { /* Show arrows only on image container hover */
+    opacity: 0; /* Make arrows fully visible */
 }
 
 /* Arrows (Styling - Customize as needed) */
 .arrow {
     position: absolute;
-    top: 50%;
+    top: 40%;
     transform: translateY(-50%);
     background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
     color: white;
     padding: 10px;
     border: none;
+    border-radius: 50px;
     cursor: pointer;
     z-index: 1; /* Ensure arrows are on top of images */
 }
-
+.arrow:hover { /* Optional: Style the arrow on hover */
+    background-color: rgba(0, 0, 0, 0.7);
+}
 .arrow-left {
     left: 10px;
 }

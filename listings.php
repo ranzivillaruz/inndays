@@ -110,9 +110,11 @@ $result = $conn->query($sql);
                 }
 
                 echo '</div>'; // End of image container
-        
+                echo '<button class="arrow arrow-left">&lt;</button>';
+                echo '<button class="arrow arrow-right">&gt;</button>';
+
                 echo '<div class="card-content">';
-                echo '<h3>' . $row['property_title'] . '</h4>';
+                echo '<h3>' . $row['property_title'] . '</h3>';
                 echo '<p>Price: ₱' . $row['property_price'] . '</p>';
                 echo '<p>' . $row['property_desc'] . '</p>';
                 echo '</div>';
@@ -129,7 +131,44 @@ $result = $conn->query($sql);
 
         cards.forEach(card => {
             const imageContainer = card.querySelector('.card-image-container');
-            // No Arrow functionality for now
+            const images = imageContainer.querySelectorAll('img');
+            const arrowLeft = card.querySelector('.arrow-left');
+            const arrowRight = card.querySelector('.arrow-right');
+            const imageCount = images.length;
+            let currentImage = 0;
+            const imageWidth = imageContainer.offsetWidth; // Use container width for image width calculation
+
+            arrowLeft.addEventListener('click', () => {
+                currentImage = (currentImage - 1 + imageCount) % imageCount;
+                scrollToImage(currentImage);
+            });
+
+            arrowRight.addEventListener('click', () => {
+                currentImage = (currentImage + 1) % imageCount;
+                scrollToImage(currentImage);
+            });
+
+            function scrollToImage(index) {
+                imageContainer.scrollTo({
+                    left: index * imageWidth, // Scroll to the exact image position
+                    behavior: 'smooth' // Use smooth scrolling
+                });
+            }
+
+            // Optional: Center images on scroll end (improved snapScroll)
+            imageContainer.addEventListener('scrollend', () => {
+                snapScroll(imageContainer);
+            });
+
+            function snapScroll(element) {
+                const scrollLeft = element.scrollLeft;
+                const imageWidth = element.offsetWidth;
+                const index = Math.round(scrollLeft / imageWidth);
+                element.scrollTo({
+                    left: index * imageWidth,
+                    behavior: 'smooth'
+                });
+            }
         });
     </script>
 </body>

@@ -1,0 +1,171 @@
+/* General styles */
+body {
+    font-family: sans-serif;
+    margin: 0;
+    background-color: #D6D2CC; /* Light gray background */
+    color: #333; /* Dark gray text color */
+}
+
+p {
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+form {
+    background-color: #fff;
+    padding: 30px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    max-width: 800px; /* Set a maximum width */
+    margin: 0 auto; /* Center the form */
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"],
+select,
+textarea {
+    width: calc(100% - 12px); /* Full width with padding adjustment */
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Include padding in width calculation */
+    font-size: 16px;
+}
+
+textarea {
+    height: 120px;
+    resize: vertical; /* Allow vertical resizing */
+}
+
+/* Property Type Buttons */
+.property-types {
+    display: flex;
+    gap: 10px; /* Space between buttons */
+    margin-bottom: 15px;
+}
+
+.property-types button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #eee; /* Light gray background */
+    color: #333;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.property-types button:hover {
+    background-color: #ddd; /* Slightly darker on hover */
+}
+
+.property-types button.active { /* Style for the active button */
+    background-color: #00000093; /* Blue background */
+    color: #ffffff;
+}
+
+/* Photo Uploads */
+#photo-uploads input[type="file"] {
+    margin-bottom: 10px;
+}
+
+/* Location Section */
+.location-section {
+    margin-bottom: 20px;
+    border-top: 1px solid #eee; /* Separator line */
+}
+
+.location-section h2 {
+    margin-bottom: 10px;
+}
+
+/* Contact Details */
+.contact-details {
+    margin-bottom: 20px;
+    border-top: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+    padding: 20px 0;
+}
+
+.contact-details h2 {
+    margin-bottom: 10px;
+}
+
+.contact-info {
+    font-size: 16px;
+}
+
+.contact-name {
+    font-weight: bold;
+}
+
+/* Buttons */
+.buttons {
+    text-align: center; /* Center the buttons */
+}
+
+.cancel-button,
+input[type="submit"] {
+    padding: 12px 25px; /* Slightly larger padding */
+    border: none;
+    border-radius: 8px; /* More rounded corners */
+    font-size: 18px; /* Larger font size */
+    font-weight: 600; /* Semi-bold font weight */
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth transitions */
+    min-width: 150px; /* Ensure a minimum width for better appearance */
+    margin-left: 5px;
+}
+
+.cancel-button {
+    background-color: #e0f2f7; /* Light blue */
+    color: #007bff; /* Blue text */
+}
+
+.cancel-button:hover {
+    background-color: #bbdefb; /* Slightly darker blue on hover */
+    transform: translateY(-2px); /* Move up slightly on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a more prominent shadow */
+}
+
+input[type="submit"] {
+    background-color: #B57A1B; /* Gold/Orange */
+    color: white;
+}
+
+input[type="submit"]:hover {
+    background-color: #99691c; /* Darker gold/orange on hover */
+    transform: translateY(-2px); /* Move up slightly on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a more prominent shadow */
+}
+
+/* Responsive design (example) */
+@media (max-width: 600px) {
+    form {
+        padding: 20px;
+    }
+
+    .property-types {
+        flex-direction: column; /* Stack buttons vertically */
+    }
+
+    .property-types button {
+        width: 100%; /* Full width buttons */
+    }
+
+    .buttons {
+        text-align: center; /* Center buttons */
+    }
+
+    .cancel-button,
+    input[type="submit"] {
+        width: 100%; /* Full width buttons */
+        margin: 10px 0; /* Add margin top and bottom */
+    }
+}
