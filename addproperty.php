@@ -63,7 +63,7 @@ if (isset($_SESSION['user_id'])) { // Replace 'user_id' with your session variab
             <button type="button" name="property_type" value="LAKE VIEW">Lake View</button>
             <button type="button" name="property_type" value="MOUNTAIN SIDE">Mountain Side</button>
             <button type="button" name="property_type" value="RIVER SIDE">River Side</button>
-            <input type="hidden" id="property_type_hidden" name="property_type" value="">
+            <input type="hidden" id="property_type_hidden" name="property_type" value="" required>
         </div><br><br>
 
         <label for="title">Title</label><br>
@@ -88,10 +88,10 @@ if (isset($_SESSION['user_id'])) { // Replace 'user_id' with your session variab
             photos.</p>
         <div id="photo-uploads">
             <input type="file" name="photo1" accept="image/*" required><br>
-            <input type="file" name="photo2" accept="image/*" required><br>
-            <input type="file" name="photo3" accept="image/*" required><br>
-            <input type="file" name="photo4" accept="image/*" required><br>
-            <input type="file" name="photo5" accept="image/*" required><br>
+            <input type="file" name="photo2" accept="image/*"><br>
+            <input type="file" name="photo3" accept="image/*"><br>
+            <input type="file" name="photo4" accept="image/*"><br>
+            <input type="file" name="photo5" accept="image/*"><br>
         </div><br>
 
         <div class="location-section">
