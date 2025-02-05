@@ -41,7 +41,7 @@
             <li><img src="assets/inndays w text.png" class="innDays-logo" alt="innDays Logo"></li>
             <li><a href="index.php"
                     class="hideOnSmallScreens <?php echo ($currentPage === 'home') ? 'active' : ''; ?>">Home</a></li>
-                    <li><a href="listings.php"
+                    <li><a href="addproperty.php"
                     class="hideOnSmallScreens <?php echo ($currentPage === 'addproperty') ? 'active' : ''; ?>">List Your Property</a>
             </li>
                     <li><a href="listings.php"
