@@ -2,27 +2,30 @@
 session_start();
 include("server/connection.php");
 
-
-
-if (isset($_SESSION['user_id'])) {
-    $user_id = $_SESSION['user_id'];
-    $sql = "SELECT * FROM users WHERE id = '$user_id'";
-    $result = $conn->query($sql);
-
-    if ($result->num_rows > 0) {
-        $user = $result->fetch_assoc();
-    } else {
-        $_SESSION['popupMessage'] = 'User not found!';
-        $_SESSION['popupType'] = 'error';
-        header('Location: loginreg.php');
-        exit();
-    }
-} else {
+// Ensure user is logged in
+if (!isset($_SESSION['user_id'])) {
     $_SESSION['popupMessage'] = 'Please log in first!';
     $_SESSION['popupType'] = 'error';
     header('Location: loginreg.php');
     exit();
 }
+
+$user_id = $_SESSION['user_id'];
+$sql = "SELECT * FROM users WHERE id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows > 0) {
+    $user = $result->fetch_assoc();
+} else {
+    $_SESSION['popupMessage'] = 'User not found!';
+    $_SESSION['popupType'] = 'error';
+    header('Location: loginreg.php');
+    exit();
+}
+$stmt->close();
 ?>
 
 <!DOCTYPE html>
@@ -35,7 +38,7 @@ if (isset($_SESSION['user_id'])) {
     <title>Profile</title>
 </head>
 <body>
-    <!-- Add this right after the opening <body> tag -->
+
 <?php 
 if (isset($_SESSION['popupMessage']) && isset($_SESSION['popupType'])): 
 ?>
@@ -45,39 +48,38 @@ if (isset($_SESSION['popupMessage']) && isset($_SESSION['popupType'])):
     });
 </script>
 <?php
-    unset($_SESSION['popupType']);
     unset($_SESSION['popupMessage']);
+    unset($_SESSION['popupType']);
 endif;
 ?>
-    
-<?php include 'header.php'; ?>  <!-- Header is placed correctly here -->
-    <div class="main-content">
-        <div class="profile-card">
-         <h2>Profile</h2>
-            <form action="server/profile_controller.php" method="POST">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" value="<?= htmlspecialchars($user['name'] ?? '') ?>" required>
 
-                <label for="contact">Contact:</label>
-                <input type="text" id="contact" name="contact" value="<?= htmlspecialchars($user['contact'] ?? '') ?>" required>
+<?php include 'header.php'; ?>
 
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" value="<?= htmlspecialchars($user['email'] ?? '') ?>" required>
+<div class="main-content">
+    <div class="profile-card">
+        <h2>Profile</h2>
+        <form action="server/profile_controller.php" method="POST">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="<?= htmlspecialchars($user['name']) ?>" required>
 
-                <label for="password">New Password:</label>
-                <input type="password" id="password" name="password" placeholder="Leave blank to keep current password">
+            <label for="contact">Contact:</label>
+            <input type="text" id="contact" name="contact" value="<?= htmlspecialchars($user['contact']) ?>" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="<?= htmlspecialchars($user['email']) ?>" required>
+
+            <label for="password">New Password:</label>
+            <input type="password" id="password" name="password" placeholder="Leave blank to keep current password">
 
             <button type="submit">Update Profile</button>
         </form>
-        </div>
     </div>
-  <!-- In your HTML -->
+</div>
+
 <div id="popupMessage" class="popup hidden">
   <p class="popup-message"></p>
-  
 </div>
-  
-</div>
+
 <script src="js/profile_popup.js"></script>
 </body>
 </html>
