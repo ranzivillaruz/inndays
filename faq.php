@@ -1,7 +1,7 @@
 <?php
-// Define the page title and current page for the header
-$pageTitle = "FAQ - innDays";
-$currentPage = "home";
+if (session_status() === PHP_SESSION_NONE) {
+    session_start(); // Start the session only if it's not already started
+}
 
 // Check if the user is logged in; if not, redirect to landing.php
 if (!isset($_SESSION['user_name'])) {
