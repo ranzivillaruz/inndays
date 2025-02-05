@@ -5,6 +5,14 @@ $currentPage = "home";
 
 // Include the reusable header
 include 'header.php';
+
+// Include the database connection
+require_once 'server/connection.php';
+
+// Fetch all listings from the database
+$sql = "SELECT * FROM Listings";
+$result = $conn->query($sql);
+
 ?>
 
 <!DOCTYPE html>
@@ -18,16 +26,15 @@ include 'header.php';
 </head>
 
 <body>
-    <!-- Listing Header -->
     <div class="listing_header">
         <div class="header_items">
             <div class="header_item">
                 <h3>OFFER TYPE</h3>
                 <select name="offer-type" id="offer-type">
                     <option value="all">All</option>
-                    <option value="room">Beach Front</option>
-                    <option value="house">Lake View</option>
-                    <option value="apartment">Mountain Side</option>
+                    <option value="beach_front">Beach Front</option>
+                    <option value="lake_view">Lake View</option>
+                    <option value="mountain_side">Mountain Side</option>
                 </select>
             </div>
             <div class="header_item">
@@ -52,51 +59,79 @@ include 'header.php';
         <button class="add_listing" onclick="window.location.href='addproperty.php';">Filter</button>
     </div>
 
-    <!-- Card Container -->
     <div class="card-container">
-        <div class="card">
-            <img src="assets/mainbg.jpg" alt="Room 1">
-            <div class="card-content">
-                <h4>Room 1</h4>
-                <p>Lorem ipsum dolor sit amet.</p>
-            </div>
-        </div>
-        <div class="card">
-            <img src="assets/footerbg.jpg" alt="Room 2">
-            <div class="card-content">
-                <h4>Room 2</h4>
-                <p>Lorem ipsum dolor sit amet.</p>
-            </div>
-        </div>
-        <div class="card">
-            <img src="assets/gif-1.gif" alt="Room 3">
-            <div class="card-content">
-                <h4>Room 3</h4>
-                <p>Lorem ipsum dolor sit amet.</p>
-            </div>
-        </div>
-        <div class="card">
-            <img src="assets/gif-2.gif" alt="Room 4">
-            <div class="card-content">
-                <h4>Room 4</h4>
-                <p>Lorem ipsum dolor sit amet.</p>
-            </div>
-        </div>
-        <div class="card">
-            <img src="assets/gif-3.gif" alt="Room 5">
-            <div class="card-content">
-                <h4>Room 5</h4>
-                <p>Lorem ipsum dolor sit amet.</p>
-            </div>
-        </div>
-        <div class="card">
-            <img src="assets/carousel1.jpg" alt="Room 6">
-            <div class="card-content">
-                <h4>Room 6</h4>
-                <p>Lorem ipsum dolor sit amet.</p>
-            </div>
-        </div>
+
+        <?php
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                echo '<div class="card">';
+
+                echo '<div class="card-image-container">'; // Start of image container
+        
+                // Array to hold all image data URIs for this card
+                $imageURIs = [];
+
+                // Display the first image (property_pic1) using BLOB
+                if (!empty($row['property_pic1'])) {
+                    $imageData = $row['property_pic1'];
+                    $imageType = 'image/jpeg'; // Default, but we'll try to detect
+        
+                    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+                    $mime = finfo_file($finfo, 'data:image/jpeg;base64,' . base64_encode($imageData));
+                    finfo_close($finfo);
+
+                    if ($mime !== false) {
+                        $imageType = $mime;
+                    }
+
+                    $dataUri = 'data:' . $imageType . ';base64,' . base64_encode($imageData); // Correct Data URI
+                    $imageURIs[] = $dataUri; // Add to the array
+                    echo '<img src="' . $dataUri . '" alt="Property Image">';
+
+                } else {
+                    // Placeholder image
+                    echo '<img src="assets/placeholder.jpg" alt="No Image Available">';
+                }
+
+                // Display other images (property_pic2 to property_pic5)
+                for ($i = 2; $i <= 5; $i++) {
+                    $picColumn = 'property_pic' . $i;
+                    if (!empty($row[$picColumn])) {
+                        $imageData = $row[$picColumn];
+                        $imageType = 'image/jpeg'; // Default
+        
+                        // Use the provided MIME type directly
+                        $mime = 'data:image/jpeg;base64';
+
+                        $dataUri = $mime . ',' . base64_encode($imageData);
+                        $imageURIs[] = $dataUri; // Add to the array
+                        echo '<img src="' . $dataUri . '" alt="Property Image ' . $i . '" class="additional-image">'; // Add class
+                    }
+                }
+
+                echo '</div>'; // End of image container
+        
+                echo '<div class="card-content">';
+                echo '<h3>' . $row['property_title'] . '</h4>';
+                echo '<p>Price: ₱' . $row['property_price'] . '</p>';
+                echo '<p>' . $row['property_desc'] . '</p>';
+                echo '</div>';
+                echo '</div>';
+            }
+        } else {
+            echo "No listings found.";
+        }
+        ?>
+
     </div>
+    <script>
+        const cards = document.querySelectorAll('.card');
+
+        cards.forEach(card => {
+            const imageContainer = card.querySelector('.card-image-container');
+            // No Arrow functionality for now
+        });
+    </script>
 </body>
 
 </html>

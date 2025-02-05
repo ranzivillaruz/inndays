@@ -64,18 +64,32 @@ select {
     background-color: #FFFFFF;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    text-align: center;
+
+    position: relative; /* Needed for positioning arrows */
+}
+
+.card-image-container {
+    width: 100%;
+    height: 200px; /* Or your desired height */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    scroll-snap-type: x mandatory; /* Use CSS scroll snapping */
+    display: flex; /* Use flexbox for horizontal arrangement */
+    -webkit-overflow-scrolling: touch; /* For smooth scrolling on iOS devices */
 }
 
 .card img {
     width: 100%;
     height: 200px;
     object-fit: cover;
+    border-radius: 10px 10px 0 0;
+    scroll-snap-align: start; /* Align images to the start of the container */
+    flex-shrink: 0; /* Prevent images from shrinking */
 }
 
 .card-content {
     padding: 10px;
+    text-align: start;
+    overflow: hidden;;
 }
 
 .card-content h4 {
@@ -87,6 +101,47 @@ select {
     margin: 0;
     color: #555;
 }
+
+.additional-image {
+    width: 50px; /* Adjust size as needed */
+    height: 50px;
+    margin: 5px;
+    border-radius: 5px;
+    object-fit: cover; /* Prevent image distortion */
+    display: inline-block; /* Arrange images horizontally */
+    border: 1px solid #ccc; /* Optional border */
+}
+
+/* Arrows (Styling - Customize as needed) */
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    z-index: 1; /* Ensure arrows are on top of images */
+}
+
+.arrow-left {
+    left: 10px;
+}
+
+.arrow-right {
+    right: 10px;
+}
+
+/* Hide scrollbar (optional) */
+.card-image-container::-webkit-scrollbar {
+    display: none;
+}
+.card-image-container {
+    -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
+    scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
+
 
 /* Responsive Design */
 @media (max-width: 1217px) {
@@ -105,8 +160,9 @@ select {
     .add_listing {
         padding: 10px 15px;
     }
-    
+
 }
+
 @media (max-width: 1024px) {
     .listing_header {
         flex-wrap: wrap;
@@ -139,14 +195,23 @@ select {
         padding: 10px 15px;
     }
 }
+
 @media (max-width: 774px) {
     .card img {
         height: 250px;
     }
+
     .card-container {
         width: 90%;
     }
+
+    .additional-image {
+        width: 40px;
+        height: 40px;
+    }
+
 }
+
 @media (max-width: 735px) {
     .listing_header {
         padding: 5px 5px 10px;
@@ -171,7 +236,13 @@ select {
     .card-content h4 {
         font-size: 16px;
     }
+
+    .additional-image {
+        width: 30px;
+        height: 30px;
+    }
 }
+
 @media (max-width: 480px) {
     .listing_header {
         padding: 10px;
@@ -194,6 +265,11 @@ select {
 
     .card-content h4 {
         font-size: 16px;
+    }
+
+    .additional-image {
+        width: 25px;
+        height: 25px;
     }
 }
 
@@ -223,12 +299,5 @@ select {
         max-width: 60%; /* Prevent the select button from being too wide */
         padding: 6px;
         font-size: 14px;
-    }
-
-    .add_listing {
-        margin-top: 15px;
-        width: 25%; /* Ensure the button spans the full width */
-        padding: 10px;
-        text-align: center;
     }
 }

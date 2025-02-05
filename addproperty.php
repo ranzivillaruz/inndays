@@ -50,10 +50,12 @@ if (isset($_SESSION['user_id'])) { // Replace 'user_id' with your session variab
 
 <body>
     <h1>What type of Property do you want to Offer?</h1>
-    <p>Let's start with basic "typology" of the listing so that property seekers can find it under the right category on innDays</p>
+    <p>Let's start with basic "typology" of the listing so that property seekers can find it under the right category on
+        innDays</p>
 
     <form action="server/addproperty_controller.php" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="property_owner" value="<?php echo $user_name; ?>"> <!-- hidden input for property owner -->
+        <input type="hidden" name="property_owner" value="<?php echo $user_name; ?>">
+        <!-- hidden input for property owner -->
 
         <label for="property_type">Property Type Location</label><br>
         <div class="property-types">
@@ -81,7 +83,8 @@ if (isset($_SESSION['user_id'])) { // Replace 'user_id' with your session variab
         </select><br><br>
 
         <label for="photos">Upload your Photos!</label><br>
-        <p>Users looking for property ignore properties without photos. Make your property stand out by uploading photos.</p>
+        <p>Users looking for property ignore properties without photos. Make your property stand out by uploading
+            photos.</p>
         <div id="photo-uploads">
             <input type="file" name="photo1" accept="image/*" required><br>
             <input type="file" name="photo2" accept="image/*" required><br>
