@@ -14,7 +14,7 @@ input {
 .container {
   position: relative;
   width: 100%;
-  background-color: #fff;
+  background-image: url("../assets/bg.jpg");
   min-height: 100vh;
   overflow: hidden;
 }

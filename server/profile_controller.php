@@ -42,6 +42,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if ($stmt->execute()) {
+        // Update session with the new name
+        $_SESSION['user_name'] = $name; // Update session variable
+
         $_SESSION['popupMessage'] = 'Profile updated successfully!';
         $_SESSION['popupType'] = 'success';
     } else {
@@ -52,6 +55,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->close();
     $conn->close();
 
+    // Redirect to the profile page or wherever you need to show the updated name
     header('Location: ../profile.php');
     exit();
 }
+?>
