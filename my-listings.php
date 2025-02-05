@@ -245,7 +245,7 @@ $result = $conn->query($sql);
         <p id="detailsPrice"></p>
         <p id="detailsDesc"></p>
         <p id="detailsLocation"></p>
-        <div id="detailsImages"></div> 
+        <div id="detailsImages"></div>
     </div>
 
     <div id="editModal">
@@ -281,116 +281,116 @@ $result = $conn->query($sql);
     </div>
 
     <script>
-       // Function to disable background scrolling
-function disableScroll() {
-    document.body.style.overflow = 'hidden';
-    document.body.style.paddingRight = 'var(--scrollbar-width)';
-}
+        // Function to disable background scrolling
+        function disableScroll() {
+            document.body.style.overflow = 'hidden';
+            document.body.style.paddingRight = 'var(--scrollbar-width)';
+        }
 
-// Function to enable background scrolling
-function enableScroll() {
-    document.body.style.overflow = 'auto';
-    document.body.style.paddingRight = 0;
-}
+        // Function to enable background scrolling
+        function enableScroll() {
+            document.body.style.overflow = 'auto';
+            document.body.style.paddingRight = 0;
+        }
 
-// Prevent default scrolling behavior (wheel and touch)
-function preventScroll(event) {
-    event.preventDefault();
-}
+        // Prevent default scrolling behavior (wheel and touch)
+        function preventScroll(event) {
+            event.preventDefault();
+        }
 
-// Prevent scrolling with arrow keys and spacebar
-function preventKeyScroll(event) {
-    const keys = [32, 37, 38, 39, 40]; // Space, Left, Up, Right, Down
-    if (keys.includes(event.keyCode)) {
-        event.preventDefault();
-    }
-}
-
-
-// Details Modal Scroll Handling
-const detailsDiv = document.getElementById("detailsDiv");
-detailsDiv.addEventListener('wheel', function(event) {
-    event.stopPropagation();
-});
-detailsDiv.addEventListener('touchmove', function(event) {
-    event.stopPropagation();
-});
-
-// Edit Modal Scroll Handling
-const editModal = document.getElementById("editModal");
-editModal.addEventListener('wheel', function(event) {
-    event.stopPropagation();
-});
-editModal.addEventListener('touchmove', function(event) {
-    event.stopPropagation();
-});
+        // Prevent scrolling with arrow keys and spacebar
+        function preventKeyScroll(event) {
+            const keys = [32, 37, 38, 39, 40]; // Space, Left, Up, Right, Down
+            if (keys.includes(event.keyCode)) {
+                event.preventDefault();
+            }
+        }
 
 
-// Open Edit Modal
-function openEditModal(property_id, title, desc, price, type, availability) {
-    editModal.style.display = 'block';
-    disableScroll();
-
-    document.getElementById('editPropertyId').value = property_id;
-    document.getElementById('editTitle').value = title;
-    document.getElementById('editDesc').value = desc;
-    document.getElementById('editPrice').value = price;
-    document.getElementById('editType').value = type;
-    document.getElementById('editAvailability').value = availability;
-}
-
-// Close Edit Modal
-function closeEditModal() {
-    editModal.style.display = 'none';
-    enableScroll();
-}
-
-
-// Open Details Modal
-document.querySelectorAll(".infoButton").forEach(button => {
-    button.addEventListener("click", function() {
-        detailsDiv.style.display = 'block';
-        disableScroll();
-
-        document.getElementById('detailsTitle').innerText = "Property Name: " + this.dataset.title;
-        document.getElementById('detailsDesc').innerText = "Description: " + this.dataset.desc;
-        document.getElementById('detailsPrice').innerText = "Price: ₱" + Number(this.dataset.price).toLocaleString();
-        document.getElementById('detailsType').innerText = "Type: " + this.dataset.type;
-        document.getElementById('detailsLocation').innerText = "Location: " + this.dataset.location;
-
-        let imagesContainer = document.getElementById('detailsImages');
-        imagesContainer.innerHTML = '';
-        JSON.parse(this.dataset.images).forEach(imgSrc => {
-            let imgElement = document.createElement('img');
-            imgElement.src = imgSrc;
-            imgElement.width = 100;
-            imagesContainer.appendChild(imgElement);
+        // Details Modal Scroll Handling
+        const detailsDiv = document.getElementById("detailsDiv");
+        detailsDiv.addEventListener('wheel', function (event) {
+            event.stopPropagation();
         });
-    });
-});
+        detailsDiv.addEventListener('touchmove', function (event) {
+            event.stopPropagation();
+        });
 
-// Close Details Modal
-document.getElementById("closeButton").addEventListener("click", function() {
-    detailsDiv.style.display = "none";
-    enableScroll();
-});
+        // Edit Modal Scroll Handling
+        const editModal = document.getElementById("editModal");
+        editModal.addEventListener('wheel', function (event) {
+            event.stopPropagation();
+        });
+        editModal.addEventListener('touchmove', function (event) {
+            event.stopPropagation();
+        });
 
 
-// Event listeners for edit buttons
-document.querySelectorAll('.edit-button').forEach(button => {
-    button.addEventListener('click', function(event) {
-        event.preventDefault();
+        // Open Edit Modal
+        function openEditModal(property_id, title, desc, price, type, availability) {
+            editModal.style.display = 'block';
+            disableScroll();
 
-        const property_id = this.dataset.id;
-        const title = this.dataset.title;
-        const desc = this.dataset.desc;
-        const price = this.dataset.price;
-        const type = this.dataset.type;
-        const availability = this.dataset.availability;
+            document.getElementById('editPropertyId').value = property_id;
+            document.getElementById('editTitle').value = title;
+            document.getElementById('editDesc').value = desc;
+            document.getElementById('editPrice').value = price;
+            document.getElementById('editType').value = type;
+            document.getElementById('editAvailability').value = availability;
+        }
 
-        openEditModal(property_id, title, desc, price, type, availability);
-    });
-});
+        // Close Edit Modal
+        function closeEditModal() {
+            editModal.style.display = 'none';
+            enableScroll();
+        }
+
+
+        // Open Details Modal
+        document.querySelectorAll(".infoButton").forEach(button => {
+            button.addEventListener("click", function () {
+                detailsDiv.style.display = 'block';
+                disableScroll();
+
+                document.getElementById('detailsTitle').innerText = "Property Name: " + this.dataset.title;
+                document.getElementById('detailsDesc').innerText = "Description: " + this.dataset.desc;
+                document.getElementById('detailsPrice').innerText = "Price: ₱" + Number(this.dataset.price).toLocaleString();
+                document.getElementById('detailsType').innerText = "Type: " + this.dataset.type;
+                document.getElementById('detailsLocation').innerText = "Location: " + this.dataset.location;
+
+                let imagesContainer = document.getElementById('detailsImages');
+                imagesContainer.innerHTML = '';
+                JSON.parse(this.dataset.images).forEach(imgSrc => {
+                    let imgElement = document.createElement('img');
+                    imgElement.src = imgSrc;
+                    imgElement.width = 100;
+                    imagesContainer.appendChild(imgElement);
+                });
+            });
+        });
+
+        // Close Details Modal
+        document.getElementById("closeButton").addEventListener("click", function () {
+            detailsDiv.style.display = "none";
+            enableScroll();
+        });
+
+
+        // Event listeners for edit buttons
+        document.querySelectorAll('.edit-button').forEach(button => {
+            button.addEventListener('click', function (event) {
+                event.preventDefault();
+
+                const property_id = this.dataset.id;
+                const title = this.dataset.title;
+                const desc = this.dataset.desc;
+                const price = this.dataset.price;
+                const type = this.dataset.type;
+                const availability = this.dataset.availability;
+
+                openEditModal(property_id, title, desc, price, type, availability);
+            });
+        });
 
 
     </script>
