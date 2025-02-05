@@ -1,12 +1,477 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  --bg-color: #cbad8d; /* RGB 203, 173, 141 */
+  --highlight-color: #d1c7bd;
+  --supporting-highlight-color: #ebe3db;
+  --hover-color: #a48374;
+  --hover-text-color: #f1ede6;
+  --text-color: #3a2d28;
+}
+
+.my-listings {
+  width: 100%; /* Or a fixed width like 960px */
+  max-width: 1300px; /* Optional max-width */
+  margin: 20px auto; /* Center the container */
+  box-sizing: border-box;
+}
+
 #detailsDiv {
+  position: fixed;
+  top: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50vw;
+  padding: 20px;
+  background: white;
+
+  box-shadow: 0px 0px 10px #aaa;
+  z-index: 9999; /* Ensure it's above other elements */
+}
+
+#detailsDiv {
+    outline: 2px solid #3a2d28; /* Set outline color */
+    scrollbar-width: thin; /* For Firefox */
+    scrollbar-color: #3a2d28 #f0f0f0; /* Thumb and track color */
+}
+
+/* For Webkit Browsers (Chrome, Edge, Safari) */
+#detailsDiv::-webkit-scrollbar {
+    width: 8px; /* Scrollbar width */
+}
+
+#detailsDiv::-webkit-scrollbar-thumb {
+    background-color: #3a2d28; /* Scrollbar thumb color */
+    border-radius: 4px;
+}
+
+#detailsDiv::-webkit-scrollbar-track {
+    background-color: #f0f0f0; /* Track color */
+}
+
+#editModal {
+    outline: 2px solid #3a2d28; /* Set outline color */
+    scrollbar-width: thin; /* For Firefox */
+    scrollbar-color: #3a2d28 #f0f0f0; /* Thumb and track color */
+}
+
+/* For Webkit Browsers (Chrome, Edge, Safari) */
+#editModal::-webkit-scrollbar {
+    width: 8px; /* Scrollbar width */
+}
+
+#editModal::-webkit-scrollbar-thumb {
+    background-color: #3a2d28; /* Scrollbar thumb color */
+    border-radius: 4px;
+}
+
+#editModal::-webkit-scrollbar-track {
+    background-color: #f0f0f0; /* Track color */
+}
+
+#detailsDiv #closeButton {
+  color: var(--text-color);
+}
+
+#detailsDiv #detailsImages {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  max-height: 300px; /* Set a max height to make it scrollable */
+}
+
+#detailsDiv #detailsImages img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16/9; /* Maintain a 16:9 aspect ratio */
+  object-fit: cover; /* Ensure the image covers the container */
+  padding: 5px;
+}
+
+.no-scroll {
+  overflow: hidden;
+}
+
+.my_listing_header {
+  /* The filter header */
+  width: 100%; /* Ensure it takes full width available in .my-listings */
+  box-sizing: border-box;
+}
+
+/* Header Styling */
+.my_listing_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 20px auto;
+
+}
+
+.header_items {
+  display: flex;
+  margin-left: 20%;
+  gap: 30px;
+}
+
+.header_item {
+  text-align: center;
+  flex: 1 1 auto; /* Key change: Allow shrinking and growing */
+  box-sizing: border-box;
+}
+
+.header_item h3 {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+}
+
+select {
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+  background-color: #d9d9d9;
+  font-size: 14px;
+  width: 100%;
+}
+
+#property_availability {
+    margin-bottom: 20px;
+}
+
+
+.filter_button {
+  background-color: #a48374;
+  color: #1e1e1e;
+  font-size: 16px;
+  border-radius: 17px;
+  padding: 10px 20px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  margin-right: 20%;
+}
+
+.my-listings h2 {
+  text-align: center;
+
+  color: var(--text-color);
+  margin: 20px;
+  text-wrap: wrap;
+}
+
+/* Center the table and set width */
+.listings-table {
+  width: 70%;
+  margin: 20px auto;
+  border-collapse: collapse;
+  background-color: #fff;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Header styling */
+.listings-table thead {
+  background-color: var(--text-color);
+  color: white;
+  text-align: left;
+}
+
+.listings-table th {
+  padding: 12px;
+  text-align: center;
+}
+
+/* Set column widths */
+.listings-table th:nth-child(1),
+.listings-table td:nth-child(1) {
+  /* Preview column */
+  width: 15%;
+  text-align: center;
+}
+
+.listings-table th:nth-child(2),
+.listings-table td:nth-child(2) {
+  /* Title column (widest) */
+  width: 40%;
+}
+
+.listings-table th:nth-child(3),
+.listings-table td:nth-child(3) {
+  /* Price column */
+  width: 15%;
+  text-align: center;
+}
+
+.listings-table th:nth-child(4),
+.listings-table td:nth-child(4) {
+  /* Actions column */
+  width: 30%;
+  text-align: center;
+}
+
+/* Table cell styling */
+.listings-table td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  vertical-align: middle;
+}
+
+/* Image inside table */
+.listings-table img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+/* Action buttons */
+.infoButton,
+.edit-button,
+.delete-button {
+  display: inline-block;
+  padding: 6px 12px;
+  margin: 2px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 14px;
+  transition: 0.3s ease-in-out;
+}
+
+/* More Info button */
+.infoButton {
+  background-color: #a48374;
+  color: #1e1e1e;
+  border: none;
+  cursor: pointer;
+}
+
+/* Edit button */
+.edit-button {
+  background-color: #a48374;
+  color: #1e1e1e;
+  padding: 6.8px 14px;
+  border: none;
+}
+
+/* Delete button */
+.delete-button {
+  background-color: #a48374;
+  color: #1e1e1e;
+  border: none;
+  padding: 6.8px 12px;
+}
+
+/* Button hover effects */
+.infoButton:hover {
+  background-color: #d0a490;
+}
+
+.edit-button:hover {
+  background-color: #d0a490;
+}
+
+.delete-button:hover {
+  background-color: #d0a490;
+}
+
+/* Styles for the edit modal (Matching #detailsDiv) */
+#editModal {
+    display: none;
     position: fixed;
-    top: 50px;
+    top: 90px; /* Same top as #detailsDiv */
     left: 50%;
     transform: translateX(-50%);
-    width: 50%;
+    width: 50vw; /* Same width as #detailsDiv */
     padding: 20px;
-    background: white;
+    background: white; /* Same background as #detailsDiv */
+    box-shadow: 0px 0px 10px #aaa; /* Same box-shadow as #detailsDiv */
+    z-index: 9999; /* Same z-index as #detailsDiv */
+    outline: 2px solid #3a2d28; /* Same outline as #detailsDiv */
+    border-radius: 0; /* Remove border-radius to match #detailsDiv */
+    overflow-y: scroll;
+    max-height: 500px;
+}
+
+#editModal .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    color: var(--text-color);
+    font-size: 1.2em;
+}
+
+#editModal h2 {
+    color: var(--text-color);
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+#editModal label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--text-color);
+    font-weight: bold;
+}
+
+#editModal input,
+#editModal textarea,
+#editModal select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
     border: 1px solid #ccc;
-    box-shadow: 0px 0px 10px #aaa;
-    z-index: 9999; /* Ensure it's above other elements */
+    border-radius: 5px; /* Keep border-radius for form elements */
+}
+
+#editModal button {
+    background-color: #a48374;
+    color: #1e1e1e;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px; /* Keep border-radius for button */
+    width: 100%;
+}
+
+.close-editModal-button {
+    font-size: 2em;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+  /* Adjust breakpoint as needed */
+
+  .listings-table {
+    width: 95%; /* Make the table full width */
+    box-sizing: border-box; /* Include padding and border in width calculation */
+    margin-bottom: 50px;
+  }
+
+  .my-listings h2 {
+    margin-bottom: 0;
+  }
+
+  .listings-table th:nth-child(1),
+  .listings-table td:nth-child(1) {
+    display: none; /* Hide Preview column */
+  }
+
+  .listings-table th:nth-child(4),
+  .listings-table td:nth-child(4) {
+    width: 25%; /* Adjust Actions column width */
+  }
+  .listings-table th:nth-child(2),
+  .listings-table td:nth-child(2) {
+    width: 40%; /* Title column width */
+  }
+  .listings-table th:nth-child(3),
+  .listings-table td:nth-child(3) {
+    width: 25%; /* Price column width */
+  }
+
+  .my_listing_header {
+    flex-direction: column; /* Stack header items vertically */
+    align-items: flex-start; /* Align items to the left */
+    padding: 10px; /* Reduce padding */
+  }
+
+  .header_items {
+    flex-direction: column; /* Stack filter items vertically */
+    gap: 10px; /* Adjust gap */
+    width: 100%; /* Make filter items take full width */
+    margin: 0;
+  }
+
+  .header_item {
+    width: 100%; /* Make each filter item occupy full width */
+    text-align: left; /* Align text to the left */
+  }
+
+  select {
+    width: 100%; /* Make select elements take full width */
+  }
+  .filter_button {
+    width: 100%;
+    margin-top: 20px 0 0 0;
+  }
+
+  #detailsDiv {
+    width: 90vw;
+    top: 100px; /* Adjusted top position */
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0 auto;
+    padding: 15px;
+    box-sizing: border-box;
+    max-height: 70vh; /* Reduced maximum height */
+    overflow-y: auto; /* Enable scrolling if content overflows */
+  }
+
+  #detailsDiv #detailsTitle {
+    margin-top: 20px;
+  }
+
+  #detailsDiv #detailsImages {
+    max-height: 40vh; /* Adjust as needed */
+  }
+
+  #detailsDiv h2,
+  #detailsDiv p,
+  #detailsDiv li {
+    /* Include list items */
+    font-size: 1rem; /* Further reduced font size */
+    margin-bottom: 8px; /* Slightly reduced margin */
+  }
+
+  #detailsDiv #closeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1rem; /* Reduced close button font size */
+  }
+
+  /* Styles for the image container */
+  #detailsDiv #detailsImages img {
+    width: 100%;
+    height: auto;
+    max-height: 35vh; /* Limit image height */
+    object-fit: contain; /* Or cover, depending on preference */
+    display: block; /* Prevent small space below image */
+    margin: 0 auto 8px; /* Center and add bottom margin */
+  }
+
+  .infoButton,
+  .edit-button,
+  .delete-button {
+    width: 100%; /* Makes them full width of their container */
+    box-sizing: border-box; /* Include padding and border in width */
+    margin-bottom: 5px; /* Add some spacing between buttons */
+    display: block; /* Makes the buttons stack vertically */
+  }
+
+  #editModal {
+    width: 90vw; /* Adjust width for smaller screens */
+    top: 100px; /* Adjust top for smaller screens if necessary */
+}
 }
