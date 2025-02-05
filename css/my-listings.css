@@ -23,7 +23,8 @@
   top: 90px;
   left: 50%;
   transform: translateX(-50%);
-  width: 50vw;
+  width: 100vw;
+  height: auto;
   padding: 20px;
   background: white;
 
@@ -74,16 +75,17 @@
 #detailsDiv #closeButton {
   color: var(--text-color);
 }
-
 #detailsDiv #detailsImages {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap; /* Allow images to wrap to the next line */
+  justify-content: center; /* Center the images */
   overflow-y: scroll;
   max-height: 300px; /* Set a max height to make it scrollable */
+  width: 100%;
 }
 
 #detailsDiv #detailsImages img {
-  width: 100%;
+  width: calc(50% - 10px); /* Two images per row with some spacing */
   height: auto;
   aspect-ratio: 16/9; /* Maintain a 16:9 aspect ratio */
   object-fit: cover; /* Ensure the image covers the container */
@@ -281,10 +283,10 @@ select {
 #editModal {
     display: none;
     position: fixed;
-    top: 90px; /* Same top as #detailsDiv */
+    top: 85px; /* Same top as #detailsDiv */
     left: 50%;
     transform: translateX(-50%);
-    width: 50vw; /* Same width as #detailsDiv */
+    width: 100vw; /* Same width as #detailsDiv */
     padding: 20px;
     background: white; /* Same background as #detailsDiv */
     box-shadow: 0px 0px 10px #aaa; /* Same box-shadow as #detailsDiv */
@@ -306,7 +308,7 @@ select {
 
 #editModal h2 {
     color: var(--text-color);
-    margin-bottom: 15px;
+    margin: 15px;
     text-align: center;
 }
 
@@ -341,6 +343,7 @@ select {
 .close-editModal-button {
     font-size: 2em;
     cursor: pointer;
+    margin: 0;
 }
 
 /* Media query for smaller screens */
@@ -459,4 +462,42 @@ select {
     width: 90vw; /* Adjust width for smaller screens */
     top: 100px; /* Adjust top for smaller screens if necessary */
 }
+}
+
+.popup {
+  position: fixed;
+  top: 70px; /* Moves the message lower */
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 15px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  z-index: 1000;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: opacity 0.5s ease-in-out;
+  text-align: center;
+}
+
+/* Success Variant */
+.popup.success {
+  background-color: #D1C7BD;
+  color: #155724;
+  border-color: #D1C7BD;
+}
+
+/* Error Variant */
+.popup.error {
+  background-color: #D1C7BD;
+  color: #721c24;
+  border-color: #D1C7BD;
+}
+
+/* Animation to fade out */
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.popup.fade-out {
+  animation: fadeOut 1s ease-in-out forwards;
 }
