@@ -49,6 +49,34 @@ select {
     border: none;
     cursor: pointer;
 }
+.more-info {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    color: white;
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+
+}
+.more-info:hover { /* Optional: Style the arrow on hover */
+    background-color: rgba(0, 0, 0, 0.7);
+}
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.modal-content img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 10px auto;
+}
 
 /* Card Container Styling */
 .card-container {

@@ -149,6 +149,7 @@ $result = $conn->query($sql);
                 }
 
                 echo '</div>'; // End of image container
+                echo '<button class="more-info" data-property-id="' . $row['property_id'] . '">More Info</button>';
                 echo '<button class="arrow arrow-left">&lt;</button>';
                 echo '<button class="arrow arrow-right">&gt;</button>';
 
@@ -171,11 +172,22 @@ $result = $conn->query($sql);
         cards.forEach(card => {
             const imageContainer = card.querySelector('.card-image-container');
             const images = imageContainer.querySelectorAll('img');
+            const moreInfoButton = card.querySelector('.more-info');
             const arrowLeft = card.querySelector('.arrow-left');
             const arrowRight = card.querySelector('.arrow-right');
             const imageCount = images.length;
             let currentImage = 0;
             const imageWidth = imageContainer.offsetWidth; // Use container width for image width calculation
+
+            moreInfoButton.addEventListener('click', () => {
+            const propertyId = moreInfoButton.dataset.propertyId; // Get the property ID
+
+            // Construct the URL for the details page
+            const detailsURL = `property_details.php?id=${propertyId}`; // Adjust filename and parameter name as needed
+
+            // Redirect to the details page
+            window.location.href = detailsURL;
+            });
 
             arrowLeft.addEventListener('click', () => {
                 currentImage = (currentImage - 1 + imageCount) % imageCount;
