@@ -1,0 +1,141 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    min-height: 100vh;
+    background-image: url("../assets/footerbg.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+/* Add this new container */
+.main-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.profile-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.profile-card h2 {
+    color: white;
+    margin-bottom: 20px;
+}
+
+.profile-card label {
+    color: white;
+    display: block;
+    text-align: left;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.profile-card input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+}
+
+.profile-card button {
+    width: 100%;
+    padding: 10px;
+    background:  #A48374;
+    border: none;
+    border-radius: 10px;
+    margin-top: 15px;
+    cursor: pointer;
+    color: white;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.profile-card button:hover {
+    background: #3A2D28;
+}
+/* Popup Base Styles */
+.popup {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px 25px;
+    border-radius: 4px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid transparent;
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    z-index: 1000; /* Add this */
+    top: 80px;
+  }
+  
+  /* Success Variant */
+  .popup.success {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+  }
+  
+  /* Error Variant */
+  .popup.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+  }
+  
+  /* Close Button */
+  .popup-close {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-left: auto;
+    color: inherit;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+  
+  .popup-close:hover {
+    opacity: 1;
+  }
+  
+  /* Message Text */
+  .popup-message {
+    margin: 0;
+  }
+  
+  /* Visibility States */
+  .popup.hidden {
+    opacity: 0;
+    transform: translate(-50%, -20px);
+    pointer-events: none;
+  }
+  
+  #popupMessage {
+    transition: opacity 0.5s ease-in-out;
+  }
+
