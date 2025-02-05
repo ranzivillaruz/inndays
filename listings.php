@@ -1,16 +1,40 @@
 <?php
-// Define the page title and current page for the header
 $pageTitle = "Listings - innDays";
 $currentPage = "home";
-
-// Include the reusable header
 include 'header.php';
-
-// Include the database connection
 require_once 'server/connection.php';
 
-// Fetch all listings from the database
-$sql = "SELECT * FROM Listings";
+$whereClauses = [];
+
+if (!empty($_GET['property_type'])) {
+    $property_type = trim($conn->real_escape_string($_GET['property_type']));
+    $whereClauses[] = "UPPER(property_type) = UPPER('$property_type')";
+}
+
+if (isset($_GET['prices']) && $_GET['prices'] != 'all') {
+    switch ($_GET['prices']) {
+        case 'low':
+            $whereClauses[] = "property_price BETWEEN 0 AND 5000";
+            break;
+        case 'medium':
+            $whereClauses[] = "property_price BETWEEN 5000 AND 10000";
+            break;
+        case 'high':
+            $whereClauses[] = "property_price BETWEEN 10000 AND 20000";
+            break;
+        case 'high2': // Corrected case for "20000 and above"
+            $whereClauses[] = "property_price > 20000";
+            break;
+    }
+}
+
+if (isset($_GET['availability']) && $_GET['availability'] != 'all') {
+    $property_availability = $conn->real_escape_string($_GET['availability']);
+    $whereClauses[] = "property_availability = '$property_availability'";
+}
+
+$whereSQL = count($whereClauses) > 0 ? "WHERE " . implode(" AND ", $whereClauses) : "";
+$sql = "SELECT * FROM Listings $whereSQL"; // Corrected table name to "Listings"
 $result = $conn->query($sql);
 
 ?>
@@ -27,37 +51,52 @@ $result = $conn->query($sql);
 
 <body>
     <div class="listing_header">
-        <div class="header_items">
-            <div class="header_item">
-                <h3>OFFER TYPE</h3>
-                <select name="offer-type" id="offer-type">
-                    <option value="all">All</option>
-                    <option value="beach_front">Beach Front</option>
-                    <option value="lake_view">Lake View</option>
-                    <option value="mountain_side">Mountain Side</option>
-                </select>
+        <form action="" method="get">
+            <div class="header_container">
+            <div class="header_items">
+                <div class="header_item">
+                    <h3>OFFER TYPE</h3>
+                    <select name="property_type" id="property_type">
+                        <option value="">All</option>
+                        <option value="MOUNTAIN SIDE">Mountain Side</option>
+                        <option value="BEACH FRONT">Beach Front</option>
+                        <option value="LAKE VIEW">Lake View</option>
+                        <option value="RIVER SIDE">River Side</option>
+                    </select>
+                </div>
+                <div class="header_item">
+                    <h3>PRICES</h3>
+                    <select name="prices" id="prices">
+                        <option value="all">All</option>
+                        <option value="low" <?php if (isset($_GET['prices']) && $_GET['prices'] == 'low')
+                            echo 'selected'; ?>>₱0 - ₱5 000</option>
+                        <option value="medium" <?php if (isset($_GET['prices']) && $_GET['prices'] == 'medium')
+                            echo 'selected'; ?>>₱5 000 - ₱10 000</option>
+                        <option value="high" <?php if (isset($_GET['prices']) && $_GET['prices'] == 'high')
+                            echo 'selected'; ?>>₱10 000 - ₱20 000</option>
+                        <option value="high" <?php if (isset($_GET['prices']) && $_GET['prices'] == 'high' && $_GET['prices'] != 'medium' && $_GET['prices'] != 'low')
+                            echo 'selected'; ?>>₱20 000 and above
+                        </option>
+                    </select>
+                </div>
+                <div class="header_item">
+                    <h3>AVAILABILITY</h3>
+                    <select name="availability" id="availability">
+                        <option value="all">All</option>
+                        <option value="today" <?php if (isset($_GET['availability']) && $_GET['availability'] == 'today')
+                            echo 'selected'; ?>>Today</option>
+                        <option value="week" <?php if (isset($_GET['availability']) && $_GET['availability'] == 'week')
+                            echo 'selected'; ?>>Next Week</option>
+                        <option value="month" <?php if (isset($_GET['availability']) && $_GET['availability'] == 'month')
+                            echo 'selected'; ?>>Next Month</option>
+                    </select>
+                </div>
             </div>
-            <div class="header_item">
-                <h3>PRICES</h3>
-                <select name="prices" id="prices">
-                    <option value="all">All</option>
-                    <option value="low">₱5 000 - ₱10 000</option>
-                    <option value="medium">₱11 000 - ₱15 000</option>
-                    <option value="high">₱16 000 up</option>
-                </select>
+            <button type="submit" class="add_listing">Filter</button>
             </div>
-            <div class="header_item">
-                <h3>AVAILABILITY</h3>
-                <select name="availability" id="availability">
-                    <option value="all">All</option>
-                    <option value="today">Today</option>
-                    <option value="week">Next Week</option>
-                    <option value="month">Next Month</option>
-                </select>
-            </div>
-        </div>
-        <button class="add_listing" onclick="window.location.href='addproperty.php';">Filter</button>
+        </form>
     </div>
+
 
     <div class="card-container">
 
