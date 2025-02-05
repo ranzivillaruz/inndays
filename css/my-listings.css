@@ -343,21 +343,6 @@ select {
     cursor: pointer;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* Media query for smaller screens */
 @media (max-width: 768px) {
   /* Adjust breakpoint as needed */

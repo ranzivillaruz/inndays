@@ -1,3 +1,17 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start(); // Start the session only if it's not already started
+}
+
+// Check if the user is logged in; if not, redirect to landing.php
+if (!isset($_SESSION['user_name'])) {
+    header("Location: landing.php");
+    exit(); // Stop further script execution
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
