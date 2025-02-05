@@ -1,16 +1,26 @@
 <?php 
-session_start(); // Start the session
+// Ensure session is started only once
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Check if the user is logged in; if not, redirect to landing.php
+if (!isset($_SESSION['user_name'])) {
+    header("Location: landing.php");
+    exit(); // Stop further script execution
+}
 
 // Define the page title and current page for the header
 $pageTitle = "Home - innDays";
 $currentPage = "home";
 
-// Check if the user is logged in and set a default value if not
-$userName = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : "Guest";
+// Sanitize username (security best practice)
+$userName = htmlspecialchars($_SESSION['user_name'], ENT_QUOTES, 'UTF-8');
 
 // Include the reusable header
-include 'header.php'; 
+include_once 'header.php'; 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -38,7 +48,7 @@ include 'header.php';
 </section>
 
 
-    <section class="parallax-section" style="background-image: url('assets/freepik__expand__18390.jpeg');">
+    <section class="parallax-section">
         <div class="overlay">
             <div class="carousel-container">
                 <div class="carousel">
@@ -82,6 +92,23 @@ include 'header.php';
                 autoplaySpeed: 3000,
             });
         });
+
+        /* ✅ JavaScript Auto-Resize Fix (Ensures True Dynamic Sizing) */
+
+        document.addEventListener("DOMContentLoaded", function() {
+            function adjustParallaxHeight() {
+            let screenHeight = window.innerHeight;
+            document.querySelectorAll(".parallax-section").forEach(section => {
+            section.style.height = screenHeight + "px";
+        });
+    }
+
+    // Call function on load & resize
+    adjustParallaxHeight();
+    window.addEventListener("resize", adjustParallaxHeight);
+});
+</script>
+
     </script>
 
 </body>
