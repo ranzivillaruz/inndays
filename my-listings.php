@@ -24,6 +24,12 @@ if (!isset($_SESSION['user_name'])) {
 
 $user_name = $_SESSION['user_name'];
 
+// Check if the user is logged in; if not, redirect to landing.php
+if (!isset($_SESSION['user_name'])) {
+    header("Location: landing.php");
+    exit(); // Stop further script execution
+}
+
 // Handle Delete Action
 if (isset($_GET['delete_id'])) {
     $delete_id = $conn->real_escape_string($_GET['delete_id']);
