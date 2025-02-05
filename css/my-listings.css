@@ -23,7 +23,8 @@
   top: 90px;
   left: 50%;
   transform: translateX(-50%);
-  width: 50vw;
+  width: 100vw;
+  height: auto;
   padding: 20px;
   background: white;
 
@@ -74,16 +75,17 @@
 #detailsDiv #closeButton {
   color: var(--text-color);
 }
-
 #detailsDiv #detailsImages {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap; /* Allow images to wrap to the next line */
+  justify-content: center; /* Center the images */
   overflow-y: scroll;
   max-height: 300px; /* Set a max height to make it scrollable */
+  width: 100%;
 }
 
 #detailsDiv #detailsImages img {
-  width: 100%;
+  width: calc(50% - 10px); /* Two images per row with some spacing */
   height: auto;
   aspect-ratio: 16/9; /* Maintain a 16:9 aspect ratio */
   object-fit: cover; /* Ensure the image covers the container */
@@ -281,10 +283,10 @@ select {
 #editModal {
     display: none;
     position: fixed;
-    top: 90px; /* Same top as #detailsDiv */
+    top: 85px; /* Same top as #detailsDiv */
     left: 50%;
     transform: translateX(-50%);
-    width: 50vw; /* Same width as #detailsDiv */
+    width: 100vw; /* Same width as #detailsDiv */
     padding: 20px;
     background: white; /* Same background as #detailsDiv */
     box-shadow: 0px 0px 10px #aaa; /* Same box-shadow as #detailsDiv */
@@ -306,7 +308,7 @@ select {
 
 #editModal h2 {
     color: var(--text-color);
-    margin-bottom: 15px;
+    margin: 15px;
     text-align: center;
 }
 
@@ -341,6 +343,7 @@ select {
 .close-editModal-button {
     font-size: 2em;
     cursor: pointer;
+    margin: 0;
 }
 
 /* Media query for smaller screens */

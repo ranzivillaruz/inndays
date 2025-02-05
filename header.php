@@ -40,7 +40,7 @@ if (!isset($_SESSION['user_name'])) {
 
             <div id="userProfileOptions" class="user-profile-options">
                 <li><a href="profile.php">&nbsp;&nbsp;&nbsp;Profile</a></li>
-                <li><a href="addproperty.php">&nbsp;&nbsp;&nbsp;List Your Property</a></li>
+
                 <li><a href="my-listings.php">&nbsp;&nbsp;&nbsp;My Listings</a></li>
                 <li><a href="logout.php">&nbsp;&nbsp;&nbsp;Logout</a></li>
             </div>
