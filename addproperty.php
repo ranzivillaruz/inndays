@@ -116,9 +116,14 @@ if (isset($_SESSION['user_id'])) { // Replace 'user_id' with your session variab
             <p>Make sure your details are updated so our users can easily contact you at the right channel.</p>
 
             <div class="contact-info">
-                <span class="contact-name"><?php echo $user_name; ?></span><br>
-                <span class="contact-email"><?php echo $user_email; ?></span><br>
-                <span class="contact-phone"><?php echo $user_contact; ?></span><br>
+                <div class="icon-text-container">
+                    <div class="icon-container"><img src="assets/user.png" alt="User Icon"></div>
+                    <div class="info-container">
+                        <span class="contact-name"><?php echo $user_name; ?></span><br>
+                        <span class="contact-email"><?php echo $user_email; ?></span><br>
+                        <span class="contact-phone"><?php echo $user_contact; ?></span><br>
+                    </div>
+                </div>
             </div>
         </div><br>
 

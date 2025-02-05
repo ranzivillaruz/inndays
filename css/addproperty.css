@@ -104,7 +104,19 @@ textarea {
 .contact-name {
     font-weight: bold;
 }
-
+.contact-details img {
+    width: 40px;
+    height: 40px;
+    margin-right: 20px;
+    object-fit: cover;
+}
+.icon-text-container {
+    display: flex;
+    align-items: center;
+}
+.cion-text-container img {
+    align-items: center;
+}
 /* Buttons */
 .buttons {
     text-align: center; /* Center the buttons */
@@ -144,6 +156,7 @@ input[type="submit"]:hover {
     transform: translateY(-2px); /* Move up slightly on hover */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a more prominent shadow */
 }
+
 
 /* Responsive design (example) */
 @media (max-width: 600px) {
