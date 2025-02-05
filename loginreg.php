@@ -11,7 +11,7 @@ session_start(); // Start the session to access session variables
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
   <link rel="stylesheet" href="css/loginreg.css" />
-  <link rel="icon" type="image/x-icon" href="assets/icon.png">
+  <link rel="icon" type="image/x-icon" href="assets/innDays icon.png">
   <title>Login and Register-innDays</title>
 </head>
 
@@ -19,44 +19,42 @@ session_start(); // Start the session to access session variables
   <div class="container">
     <div class="forms-container">
       <div class="signin-signup">
-        
-      <form action="/inndays/server/login_controller.php" method="POST" class="sign-in-form">
-    <h2 class="title">Sign in</h2>
-    <div class="input-field">
-        <i class="fas fa-envelope"></i>
-        <input type="text" name="email" placeholder="Email or Username" required />
-    </div>
-    <div class="input-field">
-        <i class="fas fa-lock"></i>
-        <input type="password" name="password" placeholder="Password" required />
-    </div>
-    <input type="submit" value="Login" class="btn solid" />
-</form>
 
+        <form action="/inndays/server/login_controller.php" method="POST" class="sign-in-form">
+          <h2 class="title">Sign in</h2>
+          <div class="input-field">
+            <i class="fas fa-envelope"></i>
+            <input type="text" name="email" placeholder="Email or Username" required />
+          </div>
+          <div class="input-field">
+            <i class="fas fa-lock"></i>
+            <input type="password" name="password" placeholder="Password" required />
+          </div>
+          <input type="submit" value="Login" class="btn solid" />
+        </form>
 
-          <form action="/inndays/server/register_controller.php" method="POST" class="sign-up-form">
-            <h2 class="title">Sign up</h2>
-            <div class="input-field">
-              <i class="fas fa-user"></i>
-              <input type="text" name="name" placeholder="Name" required />
-            </div>
-            <div class="input-field">
-  <i class="fas fa-phone"></i>
-  <input type="tel" name="contact" placeholder="Contact Number" pattern="^[0-9]{11}$" 
-  maxlength="11" inputmode="numeric" />
-</div>
+        <form action="/inndays/server/register_controller.php" method="POST" class="sign-up-form">
+          <h2 class="title">Sign up</h2>
+          <div class="input-field">
+            <i class="fas fa-user"></i>
+            <input type="text" name="name" placeholder="Name" required />
+          </div>
+          <div class="input-field">
+            <i class="fas fa-phone"></i>
+            <input type="tel" name="contact" placeholder="Contact Number" pattern="^[0-9]{11}$" maxlength="11"
+              inputmode="numeric" />
+          </div>
 
-
-            <div class="input-field">
-              <i class="fas fa-envelope"></i>
-              <input type="email" name="email" placeholder="Email" required />
-            </div>
-            <div class="input-field">
-              <i class="fas fa-lock"></i>
-              <input type="password" name="password" placeholder="Password" required />
-            </div>
-            <input type="submit" class="btn" value="Sign up" />
-          </form>
+          <div class="input-field">
+            <i class="fas fa-envelope"></i>
+            <input type="email" name="email" placeholder="Email" required />
+          </div>
+          <div class="input-field">
+            <i class="fas fa-lock"></i>
+            <input type="password" name="password" placeholder="Password" required />
+          </div>
+          <input type="submit" class="btn" value="Sign up" />
+        </form>
 
       </div>
     </div>
@@ -84,20 +82,19 @@ session_start(); // Start the session to access session variables
             Sign in
           </button>
         </div>
-        <img src="assets/register.svg" class="image" alt="" />
+        <img src="assets/innDays w text no bg.png" class="image" alt="" />
       </div>
     </div>
   </div>
   <?php if (isset($_SESSION['popupMessage'])): ?>
     <div class="popup <?php echo $_SESSION['popupType']; ?>" id="popupMessage">
-        <span><?php echo $_SESSION['popupMessage']; ?></span>
+      <span><?php echo $_SESSION['popupMessage']; ?></span>
     </div>
     <?php
     unset($_SESSION['popupMessage']);
     unset($_SESSION['popupType']);
     ?>
-<?php endif; ?>
-
+  <?php endif; ?>
 
   <script src="js/script.js"></script>
 </body>
