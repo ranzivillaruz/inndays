@@ -128,8 +128,7 @@ if (isset($_SESSION['user_id'])) { // Replace 'user_id' with your session variab
         </div><br>
 
         <div class="buttons">
-            <button type="button" class="cancel-button"
-                onclick="window.location.href='addproperty.php';">Cancel</button>
+            <button type="button" class="cancel-button" onclick="window.location.href='index.php';">Cancel</button>
             <input type="submit" value="Publish your Property">
         </div>
     </form>
