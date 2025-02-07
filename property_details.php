@@ -4,6 +4,8 @@ $currentPage = "home";
 include 'header.php';
 require_once 'server/connection.php';
 
+$row = null; // Initialize variable
+
 if (isset($_GET['id'])) {
     $propertyId = $_GET['id'];
 
@@ -38,13 +40,7 @@ if (isset($_GET['id'])) {
                 $row[$picTypeField] = $mime;
             }
         }
-    } else {
-        echo "Property not found.";
-        exit;
     }
-} else {
-    echo "No property ID specified.";
-    exit;
 }
 
 $conn->close();
@@ -56,12 +52,23 @@ $conn->close();
 <head>
     <title>Property Details</title>
     <link rel="stylesheet" href="css/property_details.css">
+    <script>
+        function openModal() {
+            document.getElementById('bookingModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('bookingModal').style.display = 'none';
+        }
+    </script>
+        
 </head>
 
 <body>
     <div class="container">
         <a href="listings.php" class="go-back">&lt; Go Back</a>
 
+        <?php if ($row): ?>
         <div class="property-details">
             <div class="image-gallery">
                 <?php for ($i = 1; $i <= 5; $i++): ?>
@@ -77,7 +84,8 @@ $conn->close();
                 <p class="price">₱<?= htmlspecialchars($row['property_price']) ?></p>
                 <p class="description"><?= htmlspecialchars($row['property_desc']) ?></p>
                 <p class="location">
-                    <i class="fas fa-map-marker-alt"></i> <?= htmlspecialchars($row['property_address']) ?>
+                    <img src="assets/loc.svg" alt="Location Icon">
+                    <?= htmlspecialchars($row['property_address']) ?>
                 </p>
 
                 <div class="contact-info">
@@ -88,8 +96,31 @@ $conn->close();
                         <span class="contact-phone">Phone: <?= htmlspecialchars($propertyContact) ?></span>
                     </div>
                 </div>
+
+                <!-- BOOK NOW BUTTON -->
+                <button class="book-now-btn" onclick="openModal()">Book Now</button>
             </div>
         </div>
+
+        <!-- MODAL -->
+        <div id="bookingModal" class="modal">
+            <div class="modal-content">
+                <h2>Confirm Booking</h2>
+                <p>Are you sure you want to book:</p>
+                <p><strong><?= htmlspecialchars($row['property_title']) ?></strong></p>
+                <p>Price: ₱<?= htmlspecialchars($row['property_price']) ?></p>
+                <p>Location: <?= htmlspecialchars($row['property_address']) ?></p>
+                <div class="modal-buttons">
+                    <button class="confirm-btn">Confirm Booking</button>
+                    <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <?php else: ?>
+            <p style="color: red; text-align: center; font-size: 20px;">Property not found.</p>
+        <?php endif; ?>
+
     </div>
 </body>
 

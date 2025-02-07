@@ -10,7 +10,8 @@ if (!isset($_SESSION['user_name'])) {
     header("Location: landing.php");
     exit(); // Stop further script execution
 }
- 
+$pageTitle = "FAQ - innDays";
+$currentPage = "FAQ";
 // Include the reusable header
 include 'header.php';
 ?>
@@ -22,7 +23,7 @@ include 'header.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="assets/innDays icon.png">
-    <title></title>
+    <title> FAQ </title>
     <link rel="stylesheet" href="css/faq.css">
 </head>
 
