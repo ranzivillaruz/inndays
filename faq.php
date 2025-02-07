@@ -1,14 +1,15 @@
 <?php
-// Define the page title and current page for the header
-$pageTitle = "FAQ - innDays";
-$currentPage = "home";
+if (session_status() === PHP_SESSION_NONE) {
+    session_start(); // Start the session only if it's not already started
+}
 
 // Check if the user is logged in; if not, redirect to landing.php
 if (!isset($_SESSION['user_name'])) {
     header("Location: landing.php");
     exit(); // Stop further script execution
 }
-
+$pageTitle = "FAQ - innDays";
+$currentPage = "FAQ";
 // Include the reusable header
 include 'header.php';
 ?>
@@ -20,7 +21,7 @@ include 'header.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="assets/innDays icon.png">
-    <title></title>
+    <title> FAQ </title>
     <link rel="stylesheet" href="css/faq.css">
 </head>
 
