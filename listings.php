@@ -81,7 +81,7 @@ $result = $conn->query($sql);
                     <h3>AVAILABILITY</h3>
                     <select name="property_availability" id="property_availability">
                         <option value="all">All</option>
-                        <option value="today" <?php if (isset($_GET['availabproperty_availability']) && $_GET['property_availability'] == 'today')
+                        <option value="today" <?php if (isset($_GET['property_availability']) && $_GET['property_availability'] == 'today')
                             echo 'selected'; ?>>Today</option>
                         <option value="week" <?php if (isset($_GET['property_availability']) && $_GET['property_availability'] == 'week')
                             echo 'selected'; ?>>Next Week</option>
