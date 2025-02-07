@@ -14,6 +14,16 @@ $currentUser = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : null;
 if (isset($_GET['id'])) {
     $propertyId = $_GET['id'];
 
+    // Check if the property is already booked
+    $bookingStatusQuery = "SELECT status FROM booking WHERE property_id = ? AND status = 'accepted' LIMIT 1";
+    $statusStmt = $conn->prepare($bookingStatusQuery);
+    $statusStmt->bind_param("i", $propertyId);
+    $statusStmt->execute();
+    $statusResult = $statusStmt->get_result();
+
+    $isBooked = $statusResult->num_rows > 0; // Property is booked if a matching record is found
+
+    // Fetch property details
     $sql = "SELECT Listings.*, Users.email AS property_email, Users.contact AS property_contact 
             FROM Listings 
             LEFT JOIN Users ON Listings.property_owner = Users.name 
@@ -87,9 +97,14 @@ $conn->close();
                 <div class="details-content">
                     <div class="book-container">
                         <h1><?= htmlspecialchars($row['property_title']) ?></h1>
-                        <!-- Check if the current user is the owner -->
+
+                        <!-- Check if the property is already booked -->
                         <?php if ($currentUser && $currentUser !== $row['property_owner']): ?>
-                            <button class="book-now-btn" onclick="openModal()">Book Now</button>
+                            <?php if ($isBooked): ?>
+                                <p class="booked-warning">This property is already booked.</p>
+                            <?php else: ?>
+                                <button class="book-now-btn" onclick="openModal()">Book Now</button>
+                            <?php endif; ?>
                         <?php else: ?>
                             <p class="owner-warning">You cannot book your own property.</p>
                         <?php endif; ?>

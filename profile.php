@@ -65,8 +65,7 @@ $stmt->close();
                 <input type="text" id="name" name="name" value="<?= htmlspecialchars($user['name']) ?>" required>
 
                 <label for="contact">Contact:</label>
-                <input type="text" id="contact" name="contact" value="<?= htmlspecialchars($user['contact']) ?>"
-                    required>
+                <input type="text" id="contact" name="contact" value="<?= htmlspecialchars($user['contact']) ?>" required>
 
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" value="<?= htmlspecialchars($user['email']) ?>" required>
@@ -87,6 +86,7 @@ $stmt->close();
 </body>
 
 </html>
+
 <?php
 // Fetch booking requests for properties owned by the logged-in user
 $booking_sql = "SELECT b.booking_id AS booking_id, b.status, u.name AS requester_name, l.property_title 
@@ -132,4 +132,37 @@ $booking_result = $booking_stmt->get_result();
     <?php endif; ?>
 </div>
 
-<?php $booking_stmt->close(); ?>
+<?php
+// Fetch rented properties for the logged-in user and show booking status
+$rented_sql = "SELECT b.booking_id AS booking_id, b.status, l.property_title 
+               FROM booking b
+               JOIN listings l ON b.property_id = l.property_id
+               WHERE b.user_id = ?";
+
+$rented_stmt = $conn->prepare($rented_sql);
+$rented_stmt->bind_param("i", $user_id);
+$rented_stmt->execute();
+$rented_result = $rented_stmt->get_result();
+?>
+
+<div class="rented-properties">
+    <h2>Your Rented Properties</h2>
+    <?php if ($rented_result->num_rows > 0): ?>
+        <table>
+            <tr>
+                <th>Property</th>
+                <th>Status</th>
+            </tr>
+            <?php while ($rented = $rented_result->fetch_assoc()): ?>
+                <tr>
+                    <td><?= htmlspecialchars($rented['property_title']) ?></td>
+                    <td><?= ucfirst($rented['status']) ?></td>
+                </tr>
+            <?php endwhile; ?>
+        </table>
+    <?php else: ?>
+        <p>You have not rented any properties.</p>
+    <?php endif; ?>
+</div>
+
+<?php $rented_stmt->close(); ?>
