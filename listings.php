@@ -4,35 +4,35 @@ $currentPage = "home";
 include 'header.php';
 require_once 'server/connection.php';
 
-$sql = "SELECT * FROM listings WHERE 1"; // Start with 'WHERE 1' as a base condition
+$whereClauses = [];
 
 if (!empty($_GET['property_type'])) {
     $property_type = trim($conn->real_escape_string($_GET['property_type']));
-    $sql .= " AND UPPER(property_type) = UPPER('$property_type')";
+    $whereClauses[] = "UPPER(property_type) = UPPER('$property_type')";
 }
 
 if (isset($_GET['prices']) && $_GET['prices'] != 'all') {
     switch ($_GET['prices']) {
         case 'low':
-            $sql .= " AND property_price BETWEEN 0 AND 5000";
+            $whereClauses[] = "property_price BETWEEN 0 AND 5000";
             break;
         case 'medium':
-            $sql .= " AND property_price BETWEEN 5001 AND 10000";
+            $whereClauses[] = "property_price BETWEEN 5001 AND 10000";
             break;
         case 'high':
-            $sql .= " AND property_price BETWEEN 10001 AND 20000";
+            $whereClauses[] = "property_price BETWEEN 10001 AND 20000";
             break;
         case 'high2': // Corrected case for "20000 and above"
-            $sql .= " AND property_price > 20000";
+            $whereClauses[] = "property_price > 20000";
             break;
     }
 }
-
-if (isset($_GET['property_availability']) && $_GET['property_availability'] != 'all') {
-    $property_availability = $conn->real_escape_string($_GET['property_availability']);
-    $sql .= " AND property_availability = '$property_availability'";
+if (!empty($_GET['property_availability']) && $_GET['property_availability'] !== 'All') {
+    $property_availability = trim($conn->real_escape_string($_GET['property_availability']));
+    $whereClauses[] = "UPPER(property_availability) = UPPER('$property_availability')";
 }
-
+$whereSQL = count($whereClauses) > 0 ? "WHERE " . implode(" AND ", $whereClauses) : "";
+$sql = "SELECT * FROM Listings $whereSQL";
 $result = $conn->query($sql);
 
 ?>
@@ -72,22 +72,19 @@ $result = $conn->query($sql);
                             echo 'selected'; ?>>₱5 001 - ₱10 000</option>
                         <option value="high" <?php if (isset($_GET['prices']) && $_GET['prices'] == 'high')
                             echo 'selected'; ?>>₱10 001 - ₱20 000</option>
-                        <option value="high2" <?php if (isset($_GET['prices']) && $_GET['prices'] == 'high' && $_GET['prices'] != 'medium' && $_GET['prices'] != 'low')
-                            echo 'selected'; ?>>₱20 000 and above
+                        <option value="high2" <?php if (isset($_GET['prices']) && $_GET['prices'] == 'high2' && $_GET['prices'] != 'medium' && $_GET['prices'] != 'low')
+                            echo 'selected'; ?>>₱20 001 and above
                         </option>
                     </select>
                 </div>
                 <div class="header_item">
                     <h3>AVAILABILITY</h3>
                     <select name="property_availability" id="property_availability">
-                        <option value="all">All</option>
-                        <option value="today" <?php if (isset($_GET['property_availability']) && $_GET['property_availability'] == 'today')
-                            echo 'selected'; ?>>Today</option>
-                        <option value="week" <?php if (isset($_GET['property_availability']) && $_GET['property_availability'] == 'week')
-                            echo 'selected'; ?>>Next Week</option>
-                        <option value="month" <?php if (isset($_GET['property_availability']) && $_GET['property_availability'] == 'month')
-                            echo 'selected'; ?>>Next Month</option>
-                    </select>
+    <option value="All" <?php if (isset($_GET['property_availability']) && $_GET['property_availability'] == 'All') echo 'selected'; ?>>All</option>
+    <option value="Today" <?php if (isset($_GET['property_availability']) && $_GET['property_availability'] == 'Today') echo 'selected'; ?>>Today</option>
+    <option value="Next Week" <?php if (isset($_GET['property_availability']) && $_GET['property_availability'] == 'Next Week') echo 'selected'; ?>>Next Week</option>
+    <option value="Next Month" <?php if (isset($_GET['property_availability']) && $_GET['property_availability'] == 'Next Month') echo 'selected'; ?>>Next Month</option>
+</select>
                 </div>
             </div>
             <button type="submit" class="add_listing">Filter</button>
