@@ -87,3 +87,49 @@ $stmt->close();
 </body>
 
 </html>
+<?php
+// Fetch booking requests for properties owned by the logged-in user
+$booking_sql = "SELECT b.booking_id AS booking_id, b.status, u.name AS requester_name, l.property_title 
+                FROM booking b
+                JOIN users u ON b.user_id = u.id
+                JOIN listings l ON b.property_id = l.property_id
+                WHERE b.owner_id = ?";
+
+$booking_stmt = $conn->prepare($booking_sql);
+$booking_stmt->bind_param("i", $user_id);
+$booking_stmt->execute();
+$booking_result = $booking_stmt->get_result();
+?>
+
+<div class="booking-requests">
+    <h2>Booking Requests</h2>
+    <?php if ($booking_result->num_rows > 0): ?>
+        <table>
+            <tr>
+                <th>Requester</th>
+                <th>Property</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            <?php while ($booking = $booking_result->fetch_assoc()): ?>
+                <tr>
+                    <td><?= htmlspecialchars($booking['requester_name']) ?></td>
+                    <td><?= htmlspecialchars($booking['property_title']) ?></td>
+                    <td><?= ucfirst($booking['status']) ?></td>
+                    <td>
+                        <form action="server/update_booking.php" method="POST">
+                            <input type="hidden" name="booking_id" value="<?= $booking['booking_id'] ?>">
+                            <button type="submit" name="status" value="accepted">Accept</button>
+                            <button type="submit" name="status" value="declined">Decline</button>
+                            <button type="submit" name="status" value="pending">Pending</button>
+                        </form>
+                    </td>
+                </tr>
+            <?php endwhile; ?>
+        </table>
+    <?php else: ?>
+        <p>No booking requests found.</p>
+    <?php endif; ?>
+</div>
+
+<?php $booking_stmt->close(); ?>

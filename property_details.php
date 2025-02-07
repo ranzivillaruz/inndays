@@ -1,10 +1,15 @@
 <?php
+session_start(); // Ensure the session is started
+
 $pageTitle = "Listings - innDays";
 $currentPage = "home";
 include 'header.php';
 require_once 'server/connection.php';
 
 $row = null; // Initialize variable
+
+// Ensure the user is logged in and has a name (or ID) in the session
+$currentUser = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : null;
 
 if (isset($_GET['id'])) {
     $propertyId = $_GET['id'];
@@ -81,8 +86,13 @@ $conn->close();
 
                 <div class="details-content">
                     <div class="book-container">
-                        <h1><?= htmlspecialchars($row['property_title']) ?></h1> <button class="book-now-btn"
-                            onclick="openModal()">Book Now</button>
+                        <h1><?= htmlspecialchars($row['property_title']) ?></h1>
+                        <!-- Check if the current user is the owner -->
+                        <?php if ($currentUser && $currentUser !== $row['property_owner']): ?>
+                            <button class="book-now-btn" onclick="openModal()">Book Now</button>
+                        <?php else: ?>
+                            <p class="owner-warning">You cannot book your own property.</p>
+                        <?php endif; ?>
                     </div>
                     <p class="price">₱<?= htmlspecialchars($row['property_price']) ?></p>
                     <p class="description"><?= htmlspecialchars($row['property_desc']) ?></p>
@@ -110,10 +120,14 @@ $conn->close();
                     <p><strong><?= htmlspecialchars($row['property_title']) ?></strong></p>
                     <p>Price: ₱<?= htmlspecialchars($row['property_price']) ?></p>
                     <p>Location: <?= htmlspecialchars($row['property_address']) ?></p>
-                    <div class="modal-buttons">
-                        <button class="cancel-btn" onclick="closeModal()">Cancel</button>
-                        <button class="confirm-btn">Confirm Booking</button>
-                    </div>
+                    <form action="book_property.php" method="POST">
+                        <input type="hidden" name="property_id" value="<?= $propertyId ?>">
+                        <input type="hidden" name="owner_id" value="<?= $row['property_owner'] ?>">
+                        <div class="modal-buttons">
+                            <button type="button" class="cancel-btn" onclick="closeModal()">Cancel</button>
+                            <button type="submit" class="confirm-btn">Confirm Booking</button>
+                        </div>
+                    </form>
                 </div>
             </div>
 
