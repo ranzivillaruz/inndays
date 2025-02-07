@@ -124,17 +124,17 @@ body {
 }
 
 .confirm-btn {
-    background-color: #B57A1B; /* Gold/Orange */
-    color: white;
+    background-color: #A48374;
+    color:#1E1E1E;
     font-size: 18px;
+    font-weight: bold;
 }
 
 .confirm-btn:hover {
-    background-color: #99691c; /* Darker gold/orange on hover */
-    transform: translateY(-2px); /* Move up slightly on hover */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a more prominent shadow */
+    background-color: #8b7368a1;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-
 .cancel-btn {
     padding: 12px 25px; /* Slightly larger padding */
     border: none;
