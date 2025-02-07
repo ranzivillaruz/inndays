@@ -59,7 +59,7 @@ $stmt->close();
 
     <div class="main-content">
         <div class="profile-card">
-            <h2>Profile</h2>
+            <h2> Update your profile</h2>
             <form action="server/profile_controller.php" method="POST">
                 <label for="name">Name:</label>
                 <input type="text" id="name" name="name" value="<?= htmlspecialchars($user['name']) ?>" required>
