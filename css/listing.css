@@ -49,6 +49,10 @@ select {
     border: none;
     cursor: pointer;
 }
+.add_listing:hover {
+    background-color: #a48374a1;
+    color: #1E1E1E;
+}
 .more-info {
     position: absolute;
     top: 10px;

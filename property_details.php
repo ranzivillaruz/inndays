@@ -61,7 +61,7 @@ $conn->close();
             document.getElementById('bookingModal').style.display = 'none';
         }
     </script>
-        
+
 </head>
 
 <body>
@@ -69,53 +69,53 @@ $conn->close();
         <a href="listings.php" class="go-back">&lt; Go Back</a>
 
         <?php if ($row): ?>
-        <div class="property-details">
-            <div class="image-gallery">
-                <?php for ($i = 1; $i <= 5; $i++): ?>
-                    <?php if (!empty($row['property_pic' . $i])): ?>
-                        <img src="data:<?= $row['property_pic' . $i . '_type'] ?>;base64,<?= base64_encode($row['property_pic' . $i]) ?>"
-                            alt="Property Image <?= $i ?>">
-                    <?php endif; ?>
-                <?php endfor; ?>
-            </div>
+            <div class="property-details">
+                <div class="image-gallery">
+                    <?php for ($i = 1; $i <= 5; $i++): ?>
+                        <?php if (!empty($row['property_pic' . $i])): ?>
+                            <img src="data:<?= $row['property_pic' . $i . '_type'] ?>;base64,<?= base64_encode($row['property_pic' . $i]) ?>"
+                                alt="Property Image <?= $i ?>">
+                        <?php endif; ?>
+                    <?php endfor; ?>
+                </div>
 
-            <div class="details-content">
-                <h1><?= htmlspecialchars($row['property_title']) ?></h1>
-                <p class="price">₱<?= htmlspecialchars($row['property_price']) ?></p>
-                <p class="description"><?= htmlspecialchars($row['property_desc']) ?></p>
-                <p class="location">
-                    <img src="assets/loc.svg" alt="Location Icon">
-                    <?= htmlspecialchars($row['property_address']) ?>
-                </p>
+                <div class="details-content">
+                    <div class="book-container">
+                        <h1><?= htmlspecialchars($row['property_title']) ?></h1> <button class="book-now-btn"
+                            onclick="openModal()">Book Now</button>
+                    </div>
+                    <p class="price">₱<?= htmlspecialchars($row['property_price']) ?></p>
+                    <p class="description"><?= htmlspecialchars($row['property_desc']) ?></p>
+                    <p class="location">
+                        <img src="assets/loc.svg" alt="Location Icon">
+                        <?= htmlspecialchars($row['property_address']) ?>
+                    </p>
 
-                <div class="contact-info">
-                    <h2>Contact Information</h2>
-                    <div class="contact-details">
-                        <span class="contact-name">Owner: <?= htmlspecialchars($row['property_owner']) ?></span><br>
-                        <span class="contact-email">Email: <?= htmlspecialchars($propertyEmail) ?></span><br>
-                        <span class="contact-phone">Phone: <?= htmlspecialchars($propertyContact) ?></span>
+                    <div class="contact-info">
+                        <h2>Contact Information</h2>
+                        <div class="contact-details">
+                            <span class="contact-name">Owner: <?= htmlspecialchars($row['property_owner']) ?></span><br>
+                            <span class="contact-email">Email: <?= htmlspecialchars($propertyEmail) ?></span><br>
+                            <span class="contact-phone">Phone: <?= htmlspecialchars($propertyContact) ?></span>
+                        </div>
                     </div>
                 </div>
-
-                <!-- BOOK NOW BUTTON -->
-                <button class="book-now-btn" onclick="openModal()">Book Now</button>
             </div>
-        </div>
 
-        <!-- MODAL -->
-        <div id="bookingModal" class="modal">
-            <div class="modal-content">
-                <h2>Confirm Booking</h2>
-                <p>Are you sure you want to book:</p>
-                <p><strong><?= htmlspecialchars($row['property_title']) ?></strong></p>
-                <p>Price: ₱<?= htmlspecialchars($row['property_price']) ?></p>
-                <p>Location: <?= htmlspecialchars($row['property_address']) ?></p>
-                <div class="modal-buttons">
-                    <button class="confirm-btn">Confirm Booking</button>
-                    <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+            <!-- MODAL -->
+            <div id="bookingModal" class="modal">
+                <div class="modal-content">
+                    <h2>Confirm Booking</h2>
+                    <p>Are you sure you want to book:</p>
+                    <p><strong><?= htmlspecialchars($row['property_title']) ?></strong></p>
+                    <p>Price: ₱<?= htmlspecialchars($row['property_price']) ?></p>
+                    <p>Location: <?= htmlspecialchars($row['property_address']) ?></p>
+                    <div class="modal-buttons">
+                        <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+                        <button class="confirm-btn">Confirm Booking</button>
+                    </div>
                 </div>
             </div>
-        </div>
 
         <?php else: ?>
             <p style="color: red; text-align: center; font-size: 20px;">Property not found.</p>
