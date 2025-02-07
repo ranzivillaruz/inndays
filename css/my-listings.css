@@ -10,7 +10,7 @@
   --hover-text-color: #f1ede6;
   --text-color: #3a2d28;
 }
-
+ 
 .my-listings {
   width: 100%; /* Or a fixed width like 960px */
   max-width: 1300px; /* Optional max-width */

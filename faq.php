@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_name'])) {
     header("Location: landing.php");
     exit(); // Stop further script execution
 }
-
+ 
 // Include the reusable header
 include 'header.php';
 ?>
