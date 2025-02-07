@@ -25,6 +25,7 @@ if (!isset($_SESSION['user_name'])) {
 $user_name = $_SESSION['user_name'];
 
 // Handle Delete Action
+// Handle Delete Action
 if (isset($_GET['delete_id'])) {
     $delete_id = $conn->real_escape_string($_GET['delete_id']);
 
@@ -32,14 +33,21 @@ if (isset($_GET['delete_id'])) {
     $ownership_result = $conn->query($check_ownership_sql);
 
     if ($ownership_result->num_rows > 0) {
-        $delete_sql = "DELETE FROM listings WHERE property_id = '$delete_id'";
-        if ($conn->query($delete_sql)) {
-            $_SESSION['popupMessage'] = "Listing deleted successfully!";
-            $_SESSION['popupType'] = "success"; // You can add "error" for errors
-            header("Location: my-listings.php");
-            exit();
+        // First, delete related bookings
+        $delete_bookings_sql = "DELETE FROM booking WHERE property_id = '$delete_id'";
+        if ($conn->query($delete_bookings_sql)) {
+            // Now, delete the listing
+            $delete_sql = "DELETE FROM listings WHERE property_id = '$delete_id'";
+            if ($conn->query($delete_sql)) {
+                $_SESSION['popupMessage'] = "Listing and its bookings deleted successfully!";
+                $_SESSION['popupType'] = "success"; 
+                header("Location: my-listings.php");
+                exit();
+            } else {
+                echo "Error deleting listing: " . $conn->error;
+            }
         } else {
-            echo "Error deleting record: " . $conn->error;
+            echo "Error deleting bookings: " . $conn->error;
         }
     } else {
         echo "You do not have permission to delete this listing.";

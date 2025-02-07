@@ -35,10 +35,12 @@ if (isset($_GET['id'])) {
     $hasPendingBooking = $pendingResult->num_rows > 0; // User has a pending booking
 
     // Fetch property details
-    $sql = "SELECT Listings.*, Users.email AS property_email, Users.contact AS property_contact 
-            FROM Listings 
-            LEFT JOIN Users ON Listings.property_owner = Users.name 
-            WHERE Listings.property_id = ?";
+    $sql = "SELECT Listings.*, Users.id AS owner_id, Users.email AS property_email, Users.contact AS property_contact 
+        FROM Listings 
+        LEFT JOIN Users ON Listings.property_owner = Users.name 
+        WHERE Listings.property_id = ?";
+
+
 
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $propertyId);
@@ -106,7 +108,7 @@ $conn->close();
                     <div class="book-container">
                         <h1><?= htmlspecialchars($row['property_title']) ?></h1>
 
-                        <?php if ($currentUser && $currentUser !== $row['property_owner']): ?>
+                        <?php if ($currentUser && $currentUser !== $row['owner_id']): ?>
                             <?php if ($isBooked): ?>
                                 <p class="booked-warning">This property is already booked.</p>
                             <?php elseif ($hasPendingBooking): ?>
@@ -117,6 +119,7 @@ $conn->close();
                         <?php else: ?>
                             <p class="owner-warning">You cannot book your own property.</p>
                         <?php endif; ?>
+
                     </div>
                     <p class="price">₱<?= htmlspecialchars($row['property_price']) ?></p>
                     <p class="description"><?= htmlspecialchars($row['property_desc']) ?></p>
@@ -124,7 +127,6 @@ $conn->close();
                         <img src="assets/loc.svg" alt="Location Icon">
                         <?= htmlspecialchars($row['property_address']) ?>
                     </p>
-
                     <div class="contact-info">
                         <h2>Contact Information</h2>
                         <div class="contact-details">
@@ -134,11 +136,7 @@ $conn->close();
                         </div>
                     </div>
                 </div>
-
-
             </div>
-
-
 
             <div id="bookingModal" class="modal">
                 <div class="modal-content">

@@ -1,142 +1,368 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
 body {
-    display: flex;
-    flex-direction: column; /* Stack children vertically */
-    min-height: 100vh;
-    background-image: url("../assets/footerbg.jpg");
-    background-size: cover;
-    background-position: center;
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  min-height: 100vh;
+  background-image: url("../assets/footerbg.jpg");
+  background-size: cover;
+  background-position: center;
 }
 
 /* Add this new container */
 .main-content {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 
 .profile-card {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border-radius: 15px;
-    padding: 20px;
-    width: 90%;
-    max-width: 400px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    text-align: center;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 20px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
 }
 
 .profile-card h2 {
-    color: #3A2D28;
-    margin-bottom: 20px;
+  color: #3a2d28;
+  margin-bottom: 20px;
 }
 
 .profile-card label {
-    color: #3A2D28;    ;
-    display: block;
-    text-align: left;
-    font-size: 14px;
-    margin-top: 10px;
+  color: #3a2d28;
+  display: block;
+  text-align: left;
+  font-size: 14px;
+  margin-top: 10px;
 }
 
 .profile-card input {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border: none;
-    border-radius: 10px;
-    outline: none;
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: none;
+  border-radius: 10px;
+  outline: none;
 }
 
 .profile-card button {
-    width: 100%;
-    padding: 10px;
-    background:  #A48374;
-    border: none;
-    border-radius: 10px;
-    margin-top: 15px;
-    cursor: pointer;
-    color: white;
-    font-size: 16px;
-    transition: 0.3s;
+  width: 100%;
+  padding: 5px;
+  background: #a48374;
+  border: none;
+  cursor: pointer;
+  color: white;
+  font-size: 16px;
+  transition: 0.3s;
+  text-wrap: wrap;
+  align-items: center;
 }
 
 .profile-card button:hover {
-    background: #3A2D28;
+  background: #3a2d28;
 }
 /* Popup Base Styles */
 .popup {
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 15px 25px;
-    border-radius: 4px;
-    font-family: Arial, sans-serif;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border: 1px solid transparent;
-    opacity: 1;
-    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-    z-index: 1000; /* Add this */
-    top: 80px;
-  }
-  
-  /* Success Variant */
-  .popup.success {
-    background-color: #D1C7BD
-    ;
-    color: #155724;
-    border-color: #D1C7BD;
-  }
-  
-  /* Error Variant */
-  .popup.error {
-    background-color: #D1C7BD;
-    color: #721c24;
-    border-color: #D1C7BD;
-  }
-  
-  /* Close Button */
-  .popup-close {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    margin-left: auto;
-    color: inherit;
-    opacity: 0.7;
-    transition: opacity 0.2s;
-  }
-  
-  .popup-close:hover {
-    opacity: 1;
-  }
-  
-  /* Message Text */
-  .popup-message {
-    margin: 0;
-  }
-  
-  /* Visibility States */
-  .popup.hidden {
-    opacity: 0;
-    transform: translate(-50%, -20px);
-    pointer-events: none;
-  }
-  
-  #popupMessage {
-    transition: opacity 0.5s ease-in-out;
-  }
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 15px 25px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid transparent;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  z-index: 1000; /* Add this */
+  top: 80px;
+}
 
+/* Success Variant */
+.popup.success {
+  background-color: #d1c7bd;
+  color: #155724;
+  border-color: #d1c7bd;
+}
+
+/* Error Variant */
+.popup.error {
+  background-color: #d1c7bd;
+  color: #721c24;
+  border-color: #d1c7bd;
+}
+
+/* Close Button */
+.popup-close {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-left: auto;
+  color: inherit;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.popup-close:hover {
+  opacity: 1;
+}
+
+/* Message Text */
+.popup-message {
+  margin: 0;
+}
+
+/* Visibility States */
+.popup.hidden {
+  opacity: 0;
+  transform: translate(-50%, -20px);
+  pointer-events: none;
+}
+
+#popupMessage {
+  transition: opacity 0.5s ease-in-out;
+}
+
+.profile-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 0; /* Remove padding to align navbar perfectly */
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  overflow: hidden; /* Prevents content from overflowing */
+  height: 500px; /* Fixed height for consistency */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navbar for switching sections */
+.profile-navbar {
+  display: flex;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  border-radius: 15px 15px 0 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: 50px; /* Fixed height */
+  /* Remove padding that might be causing the gap */
+  margin: 0;
+  padding: 0; 
+}
+
+/* Navbar Buttons */
+.tab-btn {
+  flex: 1;
+  padding: 0; /* Remove default padding */
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  background: transparent;
+  color: #3a2d28;
+  transition: 0.3s;
+  text-align: center;
+  border-bottom: 3px solid transparent;
+  height: 100%; /* Make button fill navbar height */
+  display: flex; /* Use flexbox for vertical centering */
+  align-items: flex-start; /* Vertically center content */
+  justify-content: center; /* Horizontally center content */
+  /* Add padding back, but control it */
+  padding: 12px; /* Adjust as needed */
+  /* Ensure no wrapping */
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tab-btn:not(:last-child) {
+  border-right: 1px solid rgba(255, 255, 255, 0.4); /* Subtle separation */
+}
+
+.tab-btn.active {
+  background: #a48374;
+  color: white;
+  border-bottom: 3px solid #3a2d28;
+}
+
+.tab-btn:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Content Sections */
+.tab-content {
+  display: none;
+  padding: 20px;
+  flex: 1;
+  overflow-y: auto; /* Allows scrolling if content overflows */
+}
+
+.tab-content:not(.hidden) {
+  display: block;
+}
+
+.tab-content .update-profile-btn {
+  margin-top: 25px;
+  border-radius: 10px;
+  background: #3a2d28;
+  text-align: center;
+  color: white; /* Add this line */
+}
+
+.hidden {
+  display: none;
+}
+
+
+/* ... other styles ... */
+
+/* Booking Requests Table Styles */
+.tab-content#booking-requests-section table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.tab-content#booking-requests-section th,
+.tab-content#booking-requests-section td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.tab-content#booking-requests-section th {
+  background-color: #f2f2f2;
+}
+
+.tab-content#booking-requests-section tr:hover {
+  background-color: #f5f5f5;
+}
+
+/* Action Buttons Container (Crucial Change) */
+.tab-content#booking-requests-section td.action-buttons { /* Target the td directly */
+  display: flex;
+  gap: 5px;
+  justify-content: center; /* Center buttons horizontally */
+  padding: 0; /* Remove default cell padding */
+  border: none; /* Remove cell border if any */
+}
+
+/* Action Buttons Styles */
+.tab-content#booking-requests-section td.action-buttons button { /* Target buttons in the td */
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: 5px;
+  margin: 0;
+  width: auto;
+}
+
+/* Booking Requests Table Styles */
+.tab-content#booking-requests-section table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  table-layout: fixed; /* Key for text-wrapping in cells */
+}
+
+.tab-content#booking-requests-section th,
+.tab-content#booking-requests-section td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
+  word-wrap: break-word; /* Enables text wrapping */
+  overflow-wrap: break-word; /* Alternative for older browsers */
+}
+
+/* ... (rest of the CSS remains the same) ... */
+
+/* Make the tab content scrollable */
+.tab-content#booking-requests-section {
+  overflow-y: auto; /* Enable vertical scrolling */
+  max-height: 400px; /* Set a maximum height (adjust as needed) */
+}
+/* ... rest of your styles ... */
+
+
+.tab-content .booking-requests-form .request-accepted {
+  margin-bottom: 5px;
+
+}
+
+.tab-content .booking-requests-form button {
+  border-radius: 5px;
+
+}
+
+/* ... other styles ... */
+
+/* Your Rented Properties Table Styles (Copy from Booking Requests) */
+.tab-content#rented-properties-section table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  table-layout: fixed; /* For text wrapping */
+}
+
+.tab-content#rented-properties-section th,
+.tab-content#rented-properties-section td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.tab-content#rented-properties-section th {
+  background-color: #f2f2f2;
+}
+
+.tab-content#rented-properties-section tr:hover {
+  background-color: #f5f5f5;
+}
+
+/* Make the tab content scrollable (Copy from Booking Requests) */
+.tab-content#rented-properties-section {
+  overflow-y: auto;
+  max-height: 400px; /* Adjust as needed */
+}
+
+/* Action Buttons Container (If needed in rented properties) */
+.tab-content#rented-properties-section td.action-buttons {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  padding: 0;
+  border: none;
+}
+
+.tab-content#rented-properties-section td.action-buttons button {
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: 5px;
+  margin: 0;
+  width: auto;
+}
+
+/* ... rest of your styles ... */
