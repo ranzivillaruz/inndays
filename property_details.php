@@ -77,7 +77,8 @@ $conn->close();
                 <p class="price">₱<?= htmlspecialchars($row['property_price']) ?></p>
                 <p class="description"><?= htmlspecialchars($row['property_desc']) ?></p>
                 <p class="location">
-                    <i class="fas fa-map-marker-alt"></i> <?= htmlspecialchars($row['property_address']) ?>
+                    <img src="assets/loc.svg" alt="Location Icon">
+                    <?= htmlspecialchars($row['property_address']) ?>
                 </p>
 
                 <div class="contact-info">
@@ -91,6 +92,7 @@ $conn->close();
             </div>
         </div>
     </div>
+
 </body>
 
 </html>
