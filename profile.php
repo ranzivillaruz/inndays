@@ -121,7 +121,6 @@ $booking_result = $booking_stmt->get_result();
                             <input type="hidden" name="booking_id" value="<?= $booking['booking_id'] ?>">
                             <button type="submit" name="status" value="accepted">Accept</button>
                             <button type="submit" name="status" value="declined">Decline</button>
-                            <button type="submit" name="status" value="pending">Pending</button>
                         </form>
                     </td>
                 </tr>

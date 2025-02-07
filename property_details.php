@@ -31,7 +31,7 @@ if (isset($_GET['id'])) {
     $pendingStmt->bind_param("is", $propertyId, $currentUser);
     $pendingStmt->execute();
     $pendingResult = $pendingStmt->get_result();
-    
+
     $hasPendingBooking = $pendingResult->num_rows > 0; // User has a pending booking
 
     // Fetch property details
@@ -51,20 +51,20 @@ if (isset($_GET['id'])) {
         // Ensure email and contact are set
         $propertyEmail = !empty($row['property_email']) ? $row['property_email'] : 'Not available';
         $propertyContact = !empty($row['property_contact']) ? $row['property_contact'] : 'Not available';
-         // Add MIME types for images:
-            for ($i = 1; $i <= 5; $i++) {
-                $picField = "property_pic" . $i;
-                $picTypeField = "property_pic" . $i . "_type";
-    
-                $row[$picTypeField] = ''; // Initialize
-    
-                if (!empty($row[$picField])) {
-                    $finfo = finfo_open(FILEINFO_MIME_TYPE);
-                    $mime = finfo_file($finfo, 'data:image/jpeg;base64,' . base64_encode($row[$picField]));
-                    finfo_close($finfo);
-                    $row[$picTypeField] = $mime;
-                }
+        // Add MIME types for images:
+        for ($i = 1; $i <= 5; $i++) {
+            $picField = "property_pic" . $i;
+            $picTypeField = "property_pic" . $i . "_type";
+
+            $row[$picTypeField] = ''; // Initialize
+
+            if (!empty($row[$picField])) {
+                $finfo = finfo_open(FILEINFO_MIME_TYPE);
+                $mime = finfo_file($finfo, 'data:image/jpeg;base64,' . base64_encode($row[$picField]));
+                finfo_close($finfo);
+                $row[$picTypeField] = $mime;
             }
+        }
     }
 }
 
@@ -94,7 +94,7 @@ $conn->close();
 
         <?php if ($row): ?>
             <div class="property-details">
-            <div class="image-gallery">
+                <div class="image-gallery">
                     <?php for ($i = 1; $i <= 5; $i++): ?>
                         <?php if (!empty($row['property_pic' . $i])): ?>
                             <img src="data:<?= $row['property_pic' . $i . '_type'] ?>;base64,<?= base64_encode($row['property_pic' . $i]) ?>"
@@ -124,8 +124,21 @@ $conn->close();
                         <img src="assets/loc.svg" alt="Location Icon">
                         <?= htmlspecialchars($row['property_address']) ?>
                     </p>
+
+                    <div class="contact-info">
+                        <h2>Contact Information</h2>
+                        <div class="contact-details">
+                            <span class="contact-name">Owner: <?= htmlspecialchars($row['property_owner']) ?></span><br>
+                            <span class="contact-email">Email: <?= htmlspecialchars($propertyEmail) ?></span><br>
+                            <span class="contact-phone">Phone: <?= htmlspecialchars($propertyContact) ?></span>
+                        </div>
+                    </div>
                 </div>
+
+
             </div>
+
+
 
             <div id="bookingModal" class="modal">
                 <div class="modal-content">
@@ -150,4 +163,5 @@ $conn->close();
         <?php endif; ?>
     </div>
 </body>
+
 </html>
