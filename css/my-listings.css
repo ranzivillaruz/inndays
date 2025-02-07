@@ -10,7 +10,7 @@
   --hover-text-color: #f1ede6;
   --text-color: #3a2d28;
 }
- 
+
 .my-listings {
   width: 100%; /* Or a fixed width like 960px */
   max-width: 1300px; /* Optional max-width */
@@ -20,76 +20,91 @@
 
 #detailsDiv {
   position: fixed;
-  top: 90px;
+  top: 90px; /* Adjust as needed */
   left: 50%;
   transform: translateX(-50%);
-  width: 100vw;
+  width: 90vw; /* Or a max-width */
+  max-width: 900px; /* Example max-width */
   height: auto;
   padding: 20px;
   background: white;
-
   box-shadow: 0px 0px 10px #aaa;
-  z-index: 9999; /* Ensure it's above other elements */
+  z-index: 9999;
+  display: grid; /* Enable Grid */
+  grid-template-columns: 1fr 1fr; /* Two columns */
+  gap: 20px; /* Spacing between columns */
+  align-items: start; /* Align items to the top of the grid area */
+  overflow-y: auto; /* Enable vertical scrolling */
+  max-height: 80vh; /* Set a maximum height */
 }
 
 #detailsDiv {
-    outline: 2px solid #3a2d28; /* Set outline color */
-    scrollbar-width: thin; /* For Firefox */
-    scrollbar-color: #3a2d28 #f0f0f0; /* Thumb and track color */
+  outline: 2px solid #3a2d28; /* Set outline color */
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: #3a2d28 #f0f0f0; /* Thumb and track color */
 }
 
 /* For Webkit Browsers (Chrome, Edge, Safari) */
 #detailsDiv::-webkit-scrollbar {
-    width: 8px; /* Scrollbar width */
+  width: 8px; /* Scrollbar width */
 }
 
 #detailsDiv::-webkit-scrollbar-thumb {
-    background-color: #3a2d28; /* Scrollbar thumb color */
-    border-radius: 4px;
+  background-color: #3a2d28; /* Scrollbar thumb color */
+  border-radius: 4px;
 }
 
 #detailsDiv::-webkit-scrollbar-track {
-    background-color: #f0f0f0; /* Track color */
+  background-color: #f0f0f0; /* Track color */
 }
 
 #editModal {
-    outline: 2px solid #3a2d28; /* Set outline color */
-    scrollbar-width: thin; /* For Firefox */
-    scrollbar-color: #3a2d28 #f0f0f0; /* Thumb and track color */
+  outline: 2px solid #3a2d28; /* Set outline color */
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: #3a2d28 #f0f0f0; /* Thumb and track color */
 }
 
 /* For Webkit Browsers (Chrome, Edge, Safari) */
 #editModal::-webkit-scrollbar {
-    width: 8px; /* Scrollbar width */
+  width: 8px; /* Scrollbar width */
 }
 
 #editModal::-webkit-scrollbar-thumb {
-    background-color: #3a2d28; /* Scrollbar thumb color */
-    border-radius: 4px;
+  background-color: #3a2d28; /* Scrollbar thumb color */
+  border-radius: 4px;
 }
 
 #editModal::-webkit-scrollbar-track {
-    background-color: #f0f0f0; /* Track color */
+  background-color: #f0f0f0; /* Track color */
 }
 
-#detailsDiv #closeButton {
-  color: var(--text-color);
+#detailsDiv > * {
+  /* Target all direct children of #detailsDiv */
+  /* Add some margin to separate elements */
+  margin-bottom: 10px;
 }
+
 #detailsDiv #detailsImages {
+  grid-column: 1 / 3; /* Span both columns */
   display: flex;
-  flex-wrap: wrap; /* Allow images to wrap to the next line */
-  justify-content: center; /* Center the images */
-  overflow-y: scroll;
-  max-height: 300px; /* Set a max height to make it scrollable */
-  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  overflow-y: auto;
+  max-height: 40vh; /* Adjust as needed */
 }
 
 #detailsDiv #detailsImages img {
-  width: calc(50% - 10px); /* Two images per row with some spacing */
+  width: calc(50% - 10px); /* Adjust for spacing */
   height: auto;
-  aspect-ratio: 16/9; /* Maintain a 16:9 aspect ratio */
-  object-fit: cover; /* Ensure the image covers the container */
+  aspect-ratio: 16/9;
+  object-fit: cover;
   padding: 5px;
+}
+
+#detailsDiv #closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 
 .no-scroll {
@@ -109,7 +124,6 @@
   align-items: center;
   width: 100%;
   margin: 20px auto;
-
 }
 
 .header_items {
@@ -139,9 +153,8 @@ select {
 }
 
 #property_availability {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
-
 
 .filter_button {
   background-color: #a48374;
@@ -281,69 +294,74 @@ select {
 
 /* Styles for the edit modal (Matching #detailsDiv) */
 #editModal {
-    display: none;
-    position: fixed;
-    top: 85px; /* Same top as #detailsDiv */
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100vw; /* Same width as #detailsDiv */
-    padding: 20px;
-    background: white; /* Same background as #detailsDiv */
-    box-shadow: 0px 0px 10px #aaa; /* Same box-shadow as #detailsDiv */
-    z-index: 9999; /* Same z-index as #detailsDiv */
-    outline: 2px solid #3a2d28; /* Same outline as #detailsDiv */
-    border-radius: 0; /* Remove border-radius to match #detailsDiv */
-    overflow-y: scroll;
-    max-height: 500px;
+  display: none;
+  position: fixed;
+  top: 90px; /* Consistent top positioning */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90vw; /* Use vw for responsiveness */
+  max-width: 900px; /* Set a max-width if needed */
+  height: auto;
+  padding: 20px;
+  background: white;
+  box-shadow: 0px 0px 10px #aaa;
+  z-index: 9999;
+  outline: 2px solid #3a2d28;
+  border-radius: 0;
+  overflow-y: auto;
+  max-height: 80vh; /* Set a maximum height */
 }
 
 #editModal .close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-    color: var(--text-color);
-    font-size: 1.2em;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  color: var(--text-color);
+  font-size: 2em;
 }
 
 #editModal h2 {
-    color: var(--text-color);
-    margin: 15px;
-    text-align: center;
+  color: var(--text-color);
+  margin: 15px;
+  text-align: center;
 }
 
 #editModal label {
-    display: block;
-    margin-bottom: 5px;
-    color: var(--text-color);
-    font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+  color: var(--text-color);
+  font-weight: bold;
 }
 
 #editModal input,
 #editModal textarea,
 #editModal select {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 5px; /* Keep border-radius for form elements */
-}
- 
-#editModal button {
-    background-color: #a48374;
-    color: #1e1e1e;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px; /* Keep border-radius for button */
-    width: 100%;
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
-.close-editModal-button {
-    font-size: 2em;
-    cursor: pointer;
-    margin: 0;
+#editModal button {
+  background-color: #a48374;
+  color: #1e1e1e;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 100%;
+}
+
+#editModal .close-editModal-button {
+  position: absolute;
+  top: 10px; /* Consistent close button position */
+  right: 10px;
+  font-size: 2em; /* Or adjust as needed */
+  cursor: pointer;
+  color: var(--text-color);
 }
 
 /* Media query for smaller screens */
@@ -404,26 +422,24 @@ select {
     margin-top: 20px 0 0 0;
   }
 
-  #detailsDiv {
-    width: 90vw;
-    top: 100px; /* Adjusted top position */
-    left: 50%;
-    transform: translateX(-50%);
-    margin: 0 auto;
-    padding: 15px;
-    box-sizing: border-box;
-    max-height: 70vh; /* Reduced maximum height */
-    overflow-y: auto; /* Enable scrolling if content overflows */
-  }
-
   #detailsDiv #detailsTitle {
     margin-top: 20px;
   }
 
-  #detailsDiv #detailsImages {
-    max-height: 40vh; /* Adjust as needed */
+  #detailsDiv {
+    grid-template-columns: 1fr; /* One column on smaller screens */
+    width: 95vw;
+    max-height: 90vh;
   }
 
+  #detailsDiv #detailsImages {
+    grid-column: 1; /* Back to one column */
+    max-height: 50vh; /* Allow more height for images */
+  }
+
+  #detailsDiv #detailsImages img {
+    width: 100%; /* Images take full width */
+  }
   #detailsDiv h2,
   #detailsDiv p,
   #detailsDiv li {
@@ -439,16 +455,6 @@ select {
     font-size: 1rem; /* Reduced close button font size */
   }
 
-  /* Styles for the image container */
-  #detailsDiv #detailsImages img {
-    width: 100%;
-    height: auto;
-    max-height: 35vh; /* Limit image height */
-    object-fit: contain; /* Or cover, depending on preference */
-    display: block; /* Prevent small space below image */
-    margin: 0 auto 8px; /* Center and add bottom margin */
-  }
-
   .infoButton,
   .edit-button,
   .delete-button {
@@ -459,9 +465,16 @@ select {
   }
 
   #editModal {
-    width: 90vw; /* Adjust width for smaller screens */
-    top: 100px; /* Adjust top for smaller screens if necessary */
-}
+    width: 95vw; /* Adjust width for smaller screens */
+    max-height: 90vh; /* Adjust max-height if needed */
+    top: 60px; /* Adjust top if needed */
+  }
+
+  #editModal .close-editModal-button {
+    font-size: 1rem; /* Reduced close button font size */
+  }
+  
+
 }
 
 .popup {
@@ -480,22 +493,26 @@ select {
 
 /* Success Variant */
 .popup.success {
-  background-color: #D1C7BD;
+  background-color: #d1c7bd;
   color: #155724;
-  border-color: #D1C7BD;
+  border-color: #d1c7bd;
 }
 
 /* Error Variant */
 .popup.error {
-  background-color: #D1C7BD;
+  background-color: #d1c7bd;
   color: #721c24;
-  border-color: #D1C7BD;
+  border-color: #d1c7bd;
 }
 
 /* Animation to fade out */
 @keyframes fadeOut {
-  from { opacity: 1; }
-  to { opacity: 0; }
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 .popup.fade-out {
