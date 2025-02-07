@@ -1,1 +1,4 @@
 # inndays
+
+This proposal outlines the plan for the design, development, and launch of a fully customized website for Innday’s, an Airbnb-inspired platform that connects property owners (hosts) with travelers (guests) looking for short-term rentals. The platform will allow hosts to list their properties and set availability, while guests can search, book, and manage their stays easily.       
+Our goal is to create a platform that enhances the user experience, ensuring smooth interactions and satisfaction for both hosts and guests. The project will include an intuitive, user-friendly design, streamlined property listing and booking functionalities, content management tools, and SEO optimization for improved visibility. This will result in an efficient, accessible, and engaging platform for all users. 
